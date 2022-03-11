@@ -1,11 +1,15 @@
 import React, { ReactNode } from 'react';
 import axios from "axios";
 
-type Props = {};
+const defaultProps = Object.freeze({
+    onLogin: (accessToken: string):void => {},
+});
+
+type Props = typeof defaultProps;
 
 const initialState = Object.freeze({
-    username: 'Admin',
-    password: 'changeme',
+    username: '',
+    password: '',
 });
 
 type State = typeof initialState;
@@ -18,24 +22,13 @@ export class Login extends React.Component<Props, State> {
     handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         console.log(event.target.name);
         console.log(event.target.value);      
-        switch(event.target.name) {
-            case 'password': {
-                this.setState({
-                    password: event.target.value,
-                });
-                break;
-            }
-            case 'username': {
-                this.setState({
-                    username: event.target.value,
-                });
-                break
-            }
-            default: {
-                console.log('unexpected field updated');
-                break;
-            }
-        }
+        
+        const key = event.target.name;
+        if (Object.keys(this.state).includes(key)) {
+            this.setState({
+                [key]: event.target.value 
+            } as Pick<State, keyof State>);
+         }
     }    
 
     login = (event: React.FormEvent<HTMLFormElement>) => {
@@ -55,7 +48,8 @@ export class Login extends React.Component<Props, State> {
                 },
                 config)
             .then(response => {
-                console.log(response);
+                console.log(response.data);
+                this.props.onLogin(response.data.access_token);
             })
             .catch((error) => {
                 console.log(error);
