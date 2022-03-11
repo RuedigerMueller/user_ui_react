@@ -1,8 +1,8 @@
-import React, { ReactNode } from 'react';
 import axios from "axios";
+import React, { ReactNode } from 'react';
 
 const defaultProps = Object.freeze({
-    onLogin: (accessToken: string):void => {},
+    onLogin: (accessToken: string): void => { },
 });
 
 type Props = typeof defaultProps;
@@ -21,15 +21,15 @@ export class Login extends React.Component<Props, State> {
 
     handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         console.log(event.target.name);
-        console.log(event.target.value);      
-        
+        console.log(event.target.value);
+
         const key = event.target.name;
         if (Object.keys(this.state).includes(key)) {
             this.setState({
-                [key]: event.target.value 
+                [key]: event.target.value
             } as Pick<State, keyof State>);
-         }
-    }    
+        }
+    }
 
     login = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -56,23 +56,23 @@ export class Login extends React.Component<Props, State> {
             });
     }
 
-    public render(): ReactNode {
-    return (
-        <div className="login">
-            <form onSubmit={this.login}>
-                <p>
-                    <label htmlFor="user">User</label>
-                    <input type="text" value={this.state.username} name="username" id="username" onChange={this.handleChange}></input>
-                </p>
-                <p>
-                    <label htmlFor="password">Password</label>
-                    <input type="password" value={this.state.password} name="password" id="password" onChange={this.handleChange}></input>
-                </p>
-                <p>
-                    <input type="submit" value="Login" />
-                </p>
-            </form>
-        </div>
-    );
-}
+    render(): ReactNode {
+        return (
+            <div className="login">
+                <form onSubmit={this.login}>
+                    <p>
+                        <label htmlFor="user">User</label>
+                        <input type="text" value={this.state.username} name="username" id="username" onChange={this.handleChange}></input>
+                    </p>
+                    <p>
+                        <label htmlFor="password">Password</label>
+                        <input type="password" value={this.state.password} name="password" id="password" onChange={this.handleChange}></input>
+                    </p>
+                    <p>
+                        <input type="submit" value="Login" />
+                    </p>
+                </form>
+            </div>
+        );
+    }
 }

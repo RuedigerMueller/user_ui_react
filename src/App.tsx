@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import { Login } from './Login';
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 type Props = {};
 
@@ -27,7 +27,7 @@ export class App extends React.Component<Props, State> {
     if (!this.state.isLoggedIn) {
       return (
         <div className="App">
-          {<Login onLogin={this.onLogin}/>}
+          {<Login onLogin={this.onLogin} />}
         </div>
       );
     }
