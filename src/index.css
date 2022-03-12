@@ -1,27 +1,23 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-
 @font-face {
   font-family: "72";
-  src: url("http://localhost:3000/public/72_Web") format("woff"); /* Bold, Light, Regular available in woff and woff2 */
+  src: 
+    url("../public/72_Web/72-Bold.woff") format("woff"),
+    url("../public/72_Web/72-Light.woff") format("woff"),
+    url("../public/72_Web/72-Regular.woff") format("woff"),
+    url("../public/72_Web/72-Bold.woff2") format("woff2"),
+    url("../public/72_Web/72-Light.woff2") format("woff2"),
+    url("../public/72_Web/72-Regular.woff2") format("woff2");
+    
   font-weight: normal;
   font-style: normal;
 };
 
 @font-face {
   font-family: "SAP-icons";
-  src: url("http://localhost:3000/public/SAP-icons_4.12/") format("woff"); /* available in woff, woff2 and ttf */
+  src:
+    url("../public/SAP-icons_4.12/Fonts/SAP-icons.woff") format("woff"),
+    url("../public/SAP-icons_4.12/Fonts/SAP-icons.woff2") format("woff2"),
+    url("../public/SAP-icons_4.12/Fonts/SAP-icons.ttf") format("ttf");
   font-weight: normal;
   font-style: normal;
 }
