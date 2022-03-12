@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Button, FormGroup, FormInput, FormItem, FormLabel } from "fundamental-react";
 import React, { ReactNode } from 'react';
 
 const defaultProps = Object.freeze({
@@ -31,7 +32,7 @@ export class Login extends React.Component<Props, State> {
         }
     }
 
-    login = (event: React.FormEvent<HTMLFormElement>) => {
+    login = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         event.preventDefault();
         var config = {
             headers: {
@@ -58,21 +59,42 @@ export class Login extends React.Component<Props, State> {
 
     render(): ReactNode {
         return (
-            <div className="login">
-                <form onSubmit={this.login}>
-                    <p>
-                        <label htmlFor="user">User</label>
-                        <input type="text" value={this.state.username} name="username" id="username" onChange={this.handleChange}></input>
-                    </p>
-                    <p>
-                        <label htmlFor="password">Password</label>
-                        <input type="password" value={this.state.password} name="password" id="password" onChange={this.handleChange}></input>
-                    </p>
-                    <p>
-                        <input type="submit" value="Login" />
-                    </p>
-                </form>
-            </div>
+                <div className="login"
+                    style={{
+                        width: '20em',
+                        marginLeft: 'auto',
+                        marginRight: 'auto',
+                    }}>
+                    <FormGroup>
+                        <FormItem>
+                            <FormLabel htmlFor='username' required>
+                                Username:
+                            </FormLabel>
+                            <FormInput
+                                id='username'
+                                value={this.state.username}
+                                name='username'
+                                onChange={this.handleChange}
+                            />
+                        </FormItem>
+                        <FormItem>
+                            <FormLabel htmlFor='password' required>
+                                Password:
+                            </FormLabel>
+                            <FormInput
+                                type='password'
+                                id='password'
+                                value={this.state.password}
+                                name='password'
+                                onChange={this.handleChange}
+                            />
+                        </FormItem>
+                        <p></p>
+                        <FormItem>
+                            <Button option='emphasized' onClick={this.login} >Login</Button>
+                        </FormItem>
+                    </FormGroup>
+                </div>
         );
     }
 }

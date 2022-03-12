@@ -1,5 +1,5 @@
+import { Shellbar } from 'fundamental-react';
 import React, { ReactNode } from 'react';
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import { Login } from './Login';
 
@@ -27,6 +27,9 @@ export class App extends React.Component<Props, State> {
     if (!this.state.isLoggedIn) {
       return (
         <div className="App">
+          <Shellbar
+            logo={<img alt='SAP' src='//unpkg.com/fundamental-styles/dist/images/sap-logo.png' />}
+            productTitle='User UI - React' />
           {<Login onLogin={this.onLogin} />}
         </div>
       );
