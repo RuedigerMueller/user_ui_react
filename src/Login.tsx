@@ -33,7 +33,6 @@ export class Login extends React.Component<Props, State> {
     }
 
     login = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        event.preventDefault();
         var config = {
             headers: {
                 "Content-Type": "application/json",
