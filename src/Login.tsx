@@ -49,7 +49,6 @@ export class Login extends React.Component<Props, State> {
                 },
                 config)
             .then(response => {
-                console.log(response.data);
                 this.props.onLogin(response.data.access_token);
             })
             .catch((error) => {
