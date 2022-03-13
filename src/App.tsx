@@ -1,8 +1,7 @@
 import { Shellbar } from 'fundamental-react';
 import React, { ReactNode } from 'react';
 import './App.css';
-import { Login } from './Login';
-import { UserList } from './UserList';
+import { Canvas } from './Canvas';
 
 type Props = {};
 
@@ -24,22 +23,12 @@ export class App extends React.Component<Props, State> {
   }
 
   render(): ReactNode {
-    if (!this.state.isLoggedIn) {
-      return (
-        <div className="App">
-          <Shellbar
-            logo={<img alt='SAP' src='//unpkg.com/fundamental-styles/dist/images/sap-logo.png' />}
-            productTitle='User UI - React' />
-          {<Login onLogin={this.onLogin} />}
-        </div>
-      );
-    }
     return (
       <div className="App">
         <Shellbar
           logo={<img alt='SAP' src='//unpkg.com/fundamental-styles/dist/images/sap-logo.png' />}
           productTitle='User UI - React' />
-        <UserList accessToken={this.state.accessToken}></UserList>
+        <Canvas isLoggedIn={this.state.isLoggedIn} accessToken={this.state.accessToken} onLogin={this.onLogin} ></Canvas>
       </div>
     );
   }
