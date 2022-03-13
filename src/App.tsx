@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { Shellbar } from 'fundamental-react';
 import React, { ReactNode } from 'react';
 import './App.css';
@@ -11,6 +12,8 @@ const initialState = Object.freeze({
 });
 
 type State = typeof initialState;
+
+axios.defaults.baseURL = 'http://localhost:3001/';
 
 export class App extends React.Component<Props, State> {
   readonly state = initialState;
@@ -29,8 +32,8 @@ export class App extends React.Component<Props, State> {
           logo={<img alt='SAP' src='//unpkg.com/fundamental-styles/dist/images/sap-logo.png' />}
           productTitle='User UI - React'
         />
-        <Canvas 
-          isLoggedIn={this.state.isLoggedIn} 
+        <Canvas
+          isLoggedIn={this.state.isLoggedIn}
           accessToken={this.state.accessToken}
           onLogin={this.onLogin}
         />

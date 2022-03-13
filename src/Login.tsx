@@ -1,29 +1,22 @@
-import axios from "axios";
-import { Button, FormGroup, FormInput, FormItem, FormLabel } from "fundamental-react";
+import axios from 'axios';
+import { Button, FormGroup, FormInput, FormItem, FormLabel } from 'fundamental-react';
 import React, { ReactNode } from 'react';
 
 const defaultProps = Object.freeze({
     onLogin: (accessToken: string): void => { },
 });
-
 type Props = typeof defaultProps;
 
 const initialState = Object.freeze({
     username: '',
     password: '',
 });
-
 type State = typeof initialState;
-
-const baseURL = "http://localhost:3001/login";
 
 export class Login extends React.Component<Props, State> {
     readonly state = initialState;
 
     handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(event.target.name);
-        console.log(event.target.value);
-
         const key = event.target.name;
         if (Object.keys(this.state).includes(key)) {
             this.setState({
@@ -43,15 +36,15 @@ export class Login extends React.Component<Props, State> {
     }
 
     login = () => {
-        var config = {
+        const config = {
             headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
             }
         };
 
         axios
             .post(
-                baseURL,
+                'login',
                 {
                     username: this.state.username,
                     password: this.state.password,
@@ -67,7 +60,7 @@ export class Login extends React.Component<Props, State> {
 
     render(): ReactNode {
         return (
-                <div className="login"
+                <div className='login'
                     style={{
                         width: '20em',
                         marginLeft: 'auto',

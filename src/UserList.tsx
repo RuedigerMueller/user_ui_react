@@ -1,6 +1,6 @@
-import React, { ReactNode } from 'react';
-import axios from "axios";
+import axios from 'axios';
 import { Table } from 'fundamental-react';
+import React, { ReactNode } from 'react';
 
 type User = {
     id: number,
@@ -10,37 +10,33 @@ type User = {
     email: string
 }
 
-type State = {
-    users: Array<User>
-}
-
 const defaultProps = Object.freeze({
     accessToken: '',
 });
-
 type Props = typeof defaultProps;
+
+type State = {
+    users: Array<User>
+}
 
 const initialState: State = {
     users: []
 }
 
-const baseURL = "http://localhost:3001/users";
-
 export class UserList extends React.Component<Props, State> {
     readonly state = initialState;
 
-    componentDidMount() {
-        var config = {
+    getUsers = () => {
+        const config = {
             headers: {
-                "Content-Type": "application/json",
-                "Authorization" : `Bearer ${this.props.accessToken}`
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${this.props.accessToken}`
             }
         };
 
         axios
-            .get(baseURL, config)
+            .get('users', config)
             .then(response => {
-                console.log(response.data);
                 this.setState({
                     users: response.data
                 })
@@ -50,42 +46,35 @@ export class UserList extends React.Component<Props, State> {
             });
     }
 
+    componentDidMount() {
+        this.getUsers();
+    }
+
     render(): ReactNode {
-        const tableHeaders = [
-            'ID',
-            'Username',
-            'First Name',
-            'Last Name',
-            'Email'
-        ];
-
-        // Todo: there must be a better way to convert the user table to table data....
-        let tableData = [{
-            rowData: [1, '', '', '', '']
-        }];
-
-        if (this.state.users) {
-            tableData = [];
-            for (let user of this.state.users) {
-                let row = {
-                    rowData: [
-                        user.id,
-                        user.username,
-                        user.firstName,
-                        user.lastName,
-                        user.email
-                    ]
-                }
-                tableData.push(row);
-            }
-        }    
-
         return (
-            <div className="userlist">
-                <h1>Users</h1>
+            <div className='userlist'>
                 <Table
-                    headers={tableHeaders}
-                    tableData={tableData} />
+                    headers={[
+                        'ID',
+                        'Username',
+                        'First Name',
+                        'Last Name',
+                        'Email'
+                    ]}
+                    tableData={
+                        this.state.users.map(user => {
+                            return ({
+                                rowData: [
+                                    user.id,
+                                    user.username,
+                                    user.firstName,
+                                    user.lastName,
+                                    user.email
+                                ]
+                            });
+                        })
+                    }
+                />
             </div>
         );
     }
