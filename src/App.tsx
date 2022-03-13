@@ -27,8 +27,13 @@ export class App extends React.Component<Props, State> {
       <div className="App">
         <Shellbar
           logo={<img alt='SAP' src='//unpkg.com/fundamental-styles/dist/images/sap-logo.png' />}
-          productTitle='User UI - React' />
-        <Canvas isLoggedIn={this.state.isLoggedIn} accessToken={this.state.accessToken} onLogin={this.onLogin} ></Canvas>
+          productTitle='User UI - React'
+        />
+        <Canvas 
+          isLoggedIn={this.state.isLoggedIn} 
+          accessToken={this.state.accessToken}
+          onLogin={this.onLogin}
+        />
       </div>
     );
   }
