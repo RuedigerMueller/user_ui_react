@@ -10,6 +10,22 @@ type State = typeof initialState;
 export class UserActions extends React.Component<Props, State> {
     readonly state = initialState;
 
+    onCreate = () => {
+        alert('Create not implemented yet');
+    }
+
+    onEdit = () => {
+        alert('Edit not implemented yet');
+    }
+
+    onDelete = () => {
+        alert('Delete not implemented yet');
+    }
+
+    onAssignRoles = () => {
+        alert('Role assignment not implemented yet');
+    }
+
     render(): ReactNode {
         return (
             <div className='userActions'
@@ -19,10 +35,10 @@ export class UserActions extends React.Component<Props, State> {
                 <ActionBar
                     actions={(
                         <>
-                            <Button>Create</Button>
-                            <Button>Edit</Button>
-                            <Button>Delete</Button>
-                            <Button>Assign Roles</Button>
+                            <Button onClick={this.onCreate}>Create</Button>
+                            <Button onClick={this.onEdit}>Edit</Button>
+                            <Button onClick={this.onDelete}>Delete</Button>
+                            <Button onClick={this.onAssignRoles}>Assign Roles</Button>
 
                         </>
                     )}
