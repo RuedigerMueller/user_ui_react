@@ -20,18 +20,14 @@ export class Canvas extends React.Component<Props, State> {
     readonly state = initialState;
 
     render(): ReactNode {
-        if (!this.props.isLoggedIn) {
-            return (
-                <div className="canvas">
+        return (
+            <div className="canvas">
+                { 
+                    this.props.isLoggedIn ?
+                    <UserList accessToken={this.props.accessToken}></UserList> :
                     <Login onLogin={this.props.onLogin} />
-                </div>
-            );
-        } else {
-            return (
-                <div className="canvas">
-                    <UserList accessToken={this.props.accessToken}></UserList>
-                </div>
-            )
-        }
+                }
+            </div>
+        );
     }
 }
