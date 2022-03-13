@@ -32,7 +32,17 @@ export class Login extends React.Component<Props, State> {
         }
     }
 
-    login = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    handleKeyPress = (event: React.KeyboardEvent) => {
+        if(event.key === 'Enter'){
+            this.login();
+          }
+    }
+
+    handleButtonClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        this.login();
+    }
+
+    login = () => {
         var config = {
             headers: {
                 "Content-Type": "application/json",
@@ -73,6 +83,7 @@ export class Login extends React.Component<Props, State> {
                                 value={this.state.username}
                                 name='username'
                                 onChange={this.handleChange}
+                                onKeyPress={this.handleKeyPress}
                             />
                         </FormItem>
                         <FormItem>
@@ -85,11 +96,12 @@ export class Login extends React.Component<Props, State> {
                                 value={this.state.password}
                                 name='password'
                                 onChange={this.handleChange}
+                                onKeyPress={this.handleKeyPress}
                             />
                         </FormItem>
                         <p></p>
                         <FormItem>
-                            <Button option='emphasized' onClick={this.login} >Login</Button>
+                            <Button option='emphasized' selected={true} onClick={this.handleButtonClick} >Login</Button>
                         </FormItem>
                     </FormGroup>
                 </div>
