@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { Table } from 'fundamental-react';
+import { Select, Table } from 'fundamental-react';
 import React, { ReactNode } from 'react';
 
-type User = {
+export type User = {
     id: number,
     username: string,
     firstName: string,
@@ -59,7 +59,8 @@ export class UserList extends React.Component<Props, State> {
                         'Username',
                         'First Name',
                         'Last Name',
-                        'Email'
+                        'Email',
+                        'Actions',
                     ]}
                     tableData={
                         this.state.users.map(user => {
@@ -69,7 +70,19 @@ export class UserList extends React.Component<Props, State> {
                                     user.username,
                                     user.firstName,
                                     user.lastName,
-                                    user.email
+                                    user.email,
+                                    <>
+                                        <Select
+                                            aria-label='Primary'
+                                            options={[
+                                                { key: '1', text: 'Edit' },
+                                                { key: '2', text: 'Delete' },
+                                                { key: '3', text: 'Assign Roles' },
+                                            ]}
+                                            placeholder='Select' 
+                                            selectedKey = '1'
+                                        />
+                                    </>
                                 ]
                             });
                         })
