@@ -33,15 +33,16 @@ export class Canvas extends React.Component<Props, State> {
         return (
             <div className='canvas'>
                 { 
-                    !this.props.isLoggedIn ?
-                        <Login onLogin={this.props.onLogin} />:
-                        this.props.displayUserList ?
-                            <UserList accessToken={this.props.accessToken}/>:
-                            this.props.displayUserDetail ?
-                                <UserDetails editMode={this.state.userDetailEditMode} user={this.state.user}/>:
-                                this.props.displayUserRoles ?
-                                    <h1>User Roles</h1>:
-                                    <div></div>
+                    !this.props.isLoggedIn ? <Login onLogin={this.props.onLogin} /> : <></>
+                }
+                {
+                    this.props.displayUserList ? <UserList accessToken={this.props.accessToken}/> : <></>
+                }
+                {
+                    this.props.displayUserDetail ? <UserDetails editMode={this.state.userDetailEditMode} user={this.state.user}/> : <></>
+                }
+                {
+                    this.props.displayUserRoles ? <h1>User Roles</h1> :  <></>
                 }
             </div>
         );
