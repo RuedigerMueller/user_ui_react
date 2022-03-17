@@ -1,6 +1,6 @@
 import { FormGroup, FormInput, FormItem, FormLabel } from 'fundamental-react';
 import React, { ReactNode } from 'react';
-import { User } from './UserList';
+import { User } from './UsersTable';
 
 type Props = {
     editMode: boolean,

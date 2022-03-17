@@ -1,7 +1,7 @@
 import { ActionBar, Button, Popover } from 'fundamental-react';
 import React, { ReactNode } from 'react';
 import { UserDetails } from './UserDetails';
-import { User } from './UserList';
+import { User } from './UsersTable';
 
 const defaultProps = Object.freeze({ });
 type Props = typeof defaultProps;
@@ -9,7 +9,7 @@ type Props = typeof defaultProps;
 const initialState = Object.freeze({});
 type State = typeof initialState;
 
-export class UserListActionBar extends React.Component<Props, State> {
+export class UserTableActionBar extends React.Component<Props, State> {
     readonly state = initialState;
 
     render(): ReactNode {

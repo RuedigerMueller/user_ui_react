@@ -9,6 +9,9 @@ type Props = {};
 const initialState = Object.freeze({
   isLoggedIn: false,
   accessToken: '',
+  displayUserList: false,
+  displayUserDetail: false,
+  displayUserRoles: false,
 });
 
 type State = typeof initialState;
@@ -21,7 +24,10 @@ export class App extends React.Component<Props, State> {
   onLogin = (accessToken: string): void => {
     this.setState({
       accessToken: accessToken,
-      isLoggedIn: true
+      isLoggedIn: true,
+      displayUserList: true,
+      displayUserDetail: false,
+      displayUserRoles: false,
     })
   }
 
@@ -34,6 +40,9 @@ export class App extends React.Component<Props, State> {
         />
         <Canvas
           isLoggedIn={this.state.isLoggedIn}
+          displayUserList={this.state.displayUserList}
+          displayUserDetail={this.state.displayUserDetail}
+          displayUserRoles={this.state.displayUserRoles}
           accessToken={this.state.accessToken}
           onLogin={this.onLogin}
         />
