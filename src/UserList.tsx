@@ -1,9 +1,11 @@
 import React, { ReactNode } from 'react';
+import { screenActions } from './App';
 import { UserTableActionBar } from './UserListActionBar';
-import { UsersTable } from './UsersTable';
+import { User, UsersTable } from './UsersTable';
 
 const defaultProps = Object.freeze({
     accessToken: '',
+    handleCanvasContentUpdate: (action: screenActions, user?: User): void => { },
 });
 type Props = typeof defaultProps;
 
@@ -19,7 +21,10 @@ export class UserList extends React.Component<Props, State> {
         return (
             <div className='userList'>
                 <UserTableActionBar></UserTableActionBar>
-                <UsersTable accessToken={this.props.accessToken} />
+                <UsersTable 
+                    accessToken={this.props.accessToken} 
+                    handleCanvasContentUpdate={this.props.handleCanvasContentUpdate}
+                />
             </div>
         );
     }

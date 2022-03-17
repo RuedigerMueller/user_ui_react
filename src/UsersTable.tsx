@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { Select, Table } from 'fundamental-react';
 import React, { ReactNode, SyntheticEvent } from 'react';
+import { screenActions } from './App';
 
 export type User = {
     id: number,
@@ -17,6 +18,7 @@ type Options = {
 
 const defaultProps = Object.freeze({
     accessToken: '',
+    handleCanvasContentUpdate: (action: screenActions, user?: User): void => { },
 });
 type Props = typeof defaultProps;
 
@@ -56,11 +58,12 @@ export class UsersTable extends React.Component<Props, State> {
         const dashPosition: number = selectedOption.key.indexOf('-');
         const userID: number = parseInt(selectedOption.key.substring(0,dashPosition));
         const action: number = parseInt(selectedOption.key.substring(dashPosition+1,selectedOption.key.length));
-        const user: User|undefined = this.state.users.find((user) => user.id === userID);
 
         switch (action) {
             case 1: {
                 console.log('edit');
+                const user: User|undefined = this.state.users.find((user) => user.id === userID);
+                this.props.handleCanvasContentUpdate(screenActions.edit, user);
                 break;
             }
             case 2: {
@@ -69,6 +72,7 @@ export class UsersTable extends React.Component<Props, State> {
             }
             case 3: {
                 console.log('assign roles');
+                this.props.handleCanvasContentUpdate(screenActions.assignRoles);
                 break;
             }
             default: {
