@@ -2,8 +2,8 @@ import axios from 'axios';
 import { Shellbar } from 'fundamental-react';
 import React, { ReactNode } from 'react';
 import './App.css';
-import { Canvas } from './Canvas';
-import { User } from './UsersTable';
+import { Canvas } from './components/Canvas';
+import { User } from './type';
 
 export enum screenActions {
   create,

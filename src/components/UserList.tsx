@@ -1,7 +1,8 @@
 import React, { ReactNode } from 'react';
-import { screenActions } from './App';
+import { screenActions } from '../App';
+import { User } from '../type';
 import { UserTableActionBar } from './UserListActionBar';
-import { User, UsersTable } from './UsersTable';
+import { UsersTable } from './UsersTable';
 
 const defaultProps = Object.freeze({
     accessToken: '',

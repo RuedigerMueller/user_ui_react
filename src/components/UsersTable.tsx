@@ -1,15 +1,8 @@
 import axios from 'axios';
 import { Select, Table } from 'fundamental-react';
 import React, { ReactNode, SyntheticEvent } from 'react';
-import { screenActions } from './App';
-
-export type User = {
-    id: number,
-    username: string,
-    firstName: string,
-    lastName: string,
-    email: string
-}
+import { screenActions } from '../App';
+import { User } from '../type';
 
 type Options = {
     key: string,

@@ -1,9 +1,9 @@
 import React, { ReactNode } from 'react';
-import { screenActions } from './App';
+import { screenActions } from '../App';
+import { User } from '../type';
 import { Login } from './Login';
 import { UserDetails } from './UserDetails';
 import { UserList } from './UserList';
-import { User } from './UsersTable';
 
 const defaultProps = Object.freeze({
     isLoggedIn: false,

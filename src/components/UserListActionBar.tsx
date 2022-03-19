@@ -1,7 +1,8 @@
 import { ActionBar, Button, Popover } from 'fundamental-react';
 import React, { ReactNode } from 'react';
+import { User } from '../type';
 import { UserDetails } from './UserDetails';
-import { User } from './UsersTable';
+
 
 const defaultProps = Object.freeze({ });
 type Props = typeof defaultProps;
