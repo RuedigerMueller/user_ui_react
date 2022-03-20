@@ -1,4 +1,41 @@
-import { ActionBar, Button, Popover } from 'fundamental-react';
+import { ActionBar, Button } from 'fundamental-react';
+import React from 'react';
+
+export const UserTableActionBar: React.FC = () => {    
+    /* const [displayState, setDisplayState] = React.useState<IDisplayState | {}>()
+
+    const handleCreate = () => {
+        console.log('handleCreate');
+        setDisplayState({
+            displayLogin: false,
+            displayUserList: false,
+            displayUserDetail: true,
+            displayUserRoles: false,
+        });
+        console.log(displayState);
+    } */
+
+    return (
+        <div className='userActions'
+            style={{
+                textAlign: 'start',
+            }}>
+            <ActionBar
+                title={'Users'}
+                description={'Manage application users'}
+                actions={(
+                    <Button 
+                        // onClick={() => handleCreate()}
+                    >
+                        Create
+                    </Button>
+                )}
+            />
+        </div>
+    );
+  }
+
+/*import { ActionBar, Button, Popover } from 'fundamental-react';
 import React, { ReactNode } from 'react';
 import { User } from '../type';
 import { UserDetails } from './UserDetails';
@@ -44,3 +81,4 @@ export class UserTableActionBar extends React.Component<Props, State> {
         );
     }
 }
+*/

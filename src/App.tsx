@@ -1,48 +1,38 @@
 import axios from 'axios';
 import { Shellbar } from 'fundamental-react';
-import React, { ReactNode } from 'react';
+import React from 'react';
 import './App.css';
 import { Canvas } from './components/Canvas';
-import { User } from './type';
-
-export enum screenActions {
-  create,
-  edit,
-  delete,
-  assignRoles,
-}
-
-type Props = {};
-
-const initialState = Object.freeze({
-  isLoggedIn: false,
-  accessToken: '',
-  displayUserList: false,
-  displayUserDetail: false,
-  displayUserRoles: false,
-  user: {
-    id : 1,
-    username: '',
-    firstName: '',
-    lastName: '',
-    email: ''
-  } as User
-});
-
-type State = typeof initialState;
 
 axios.defaults.baseURL = 'http://localhost:3001/';
 
+export const App: React.FC = () => {
+
+  return (
+    <div className="App">
+      <Shellbar
+        logo={<img alt='SAP' src='//unpkg.com/fundamental-styles/dist/images/sap-logo.png' />}
+        productTitle='User UI - React'
+      />
+      <Canvas/>
+    </div>
+  )
+}
+
+/*
 export class App extends React.Component<Props, State> {
   readonly state = initialState;
 
   onLogin = (accessToken: string): void => {
+    console.log('onLogin');
     this.setState({
       accessToken: accessToken,
-      isLoggedIn: true,
-      displayUserList: true,
-      displayUserDetail: false,
-      displayUserRoles: false,
+      displayState: {
+        displayLogin: true,
+        displayUserList: true,
+        displayUserDetail: false,
+        displayUserRoles: false,
+      }
     })
   }
 
@@ -53,10 +43,13 @@ export class App extends React.Component<Props, State> {
         break;
       }
       case screenActions.edit: {
-        this.setState({
-          displayUserList: false,
-          displayUserDetail: true,
-          displayUserRoles: false,
+        this.setState({ 
+          displayState: {
+            displayLogin: false,
+            displayUserList: false,
+            displayUserDetail: true,
+            displayUserRoles: false,
+          },
           user: user as User
         });
         break;
@@ -66,13 +59,16 @@ export class App extends React.Component<Props, State> {
       }
       case screenActions.assignRoles: {
         this.setState({
-          displayUserList: false,
-          displayUserDetail: false,
-          displayUserRoles: true,
+          displayState: {
+            displayLogin: false,
+            displayUserList: false,
+            displayUserDetail: false,
+            displayUserRoles: true,
+          }
         });
         break;
       }
-      default : {
+      default: {
         console.log('unexpected action');
       }
     }
@@ -86,16 +82,13 @@ export class App extends React.Component<Props, State> {
           productTitle='User UI - React'
         />
         <Canvas
-          isLoggedIn={this.state.isLoggedIn}
-          displayUserList={this.state.displayUserList}
-          displayUserDetail={this.state.displayUserDetail}
-          displayUserRoles={this.state.displayUserRoles}
           user={this.state.user}
           accessToken={this.state.accessToken}
           onLogin={this.onLogin}
-          handleCanvasContentUpdate={this.handleCanvasContentUpdate}
+          //handleCanvasContentUpdate={this.handleCanvasContentUpdate}
         />
       </div>
     );
   }
 }
+*/

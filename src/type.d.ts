@@ -1,9 +1,22 @@
 export type User = {
     id: number,
     username: string,
+    password: string,
     firstName: string,
     lastName: string,
     email: string
+}
+
+interface ILoginInfo {
+    username: string,
+    password: string,
+}
+
+export interface IDisplayState {
+    displayLogin: boolean,
+    displayUserList: boolean,
+    displayUserDetail: boolean,
+    displayUserRoles: boolean,
 }
 
 export enum screenActions {
@@ -13,14 +26,23 @@ export enum screenActions {
     assignRoles,
 }
 
+type Options = {
+    key: string,
+    text: string
+}
+
+type LoginState = {
+    loginInfo: ILoginInfo;
+    accessToken: string,
+}
+
 type AppState = {
-    isLoggedIn: boolean
+    displayState: IDisplayState
+    //loginInfo: ILoginInfo
     accessToken: string
-    displayUserList: boolean
-    displayUserDetail: boolean
-    displayUserRoles: boolean
     user: User
     userList: ReadonlyArray<User>
+    error: string
 }
 
 type AppAction = {

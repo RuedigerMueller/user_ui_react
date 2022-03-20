@@ -1,15 +1,37 @@
-import React, { ReactNode } from 'react';
-import { screenActions } from '../App';
-import { User } from '../type';
+import React from 'react';
+import { useTypedSelector } from '../store/useTypeSelector';
+import { Login } from './Login';
+import { UserDetails } from './UserDetails';
+import { UserList } from './UserList';
+
+export const Canvas: React.FC = () => {
+    const { displayState } = useTypedSelector((state) => state.login);
+
+    return (
+        <div className='canvas'>
+            {
+                displayState.displayLogin ? <Login /> : <></>
+            }
+            {
+                displayState.displayUserList ? <UserList /> : <></>
+            }
+            {
+                displayState.displayUserDetail ? <UserDetails /> : <></>
+            }
+            {
+                displayState.displayUserRoles ? <h1>User Roles</h1> : <></>
+            }
+        </div>
+    );
+}
+/*import { screenActions } from '../App';
+import { IDisplayState, User } from '../type';
 import { Login } from './Login';
 import { UserDetails } from './UserDetails';
 import { UserList } from './UserList';
 
 const defaultProps = Object.freeze({
-    isLoggedIn: false,
-    displayUserList: false,
-    displayUserDetail: false,
-    displayUserRoles: false,
+    displayState: {} as IDisplayState,
     user: {} as User,
     accessToken: '',
     onLogin: (accessToken: string): void => { },
@@ -29,10 +51,10 @@ export class Canvas extends React.Component<Props, State> {
         return (
             <div className='canvas'>
                 { 
-                    !this.props.isLoggedIn ? <Login onLogin={this.props.onLogin} /> : <></>
+                    !this.props.displayState.displayLogin ? <Login onLogin={this.props.onLogin} /> : <></>
                 }
                 {
-                    this.props.displayUserList ? 
+                    this.props.displayState.displayUserList ? 
                         <UserList 
                             accessToken={this.props.accessToken}
                             handleCanvasContentUpdate={this.props.handleCanvasContentUpdate}
@@ -40,12 +62,13 @@ export class Canvas extends React.Component<Props, State> {
                          <></>
                 }
                 {
-                    this.props.displayUserDetail ? <UserDetails editMode={this.state.userDetailEditMode} user={this.props.user}/> : <></>
+                    this.props.displayState.displayUserDetail ? <UserDetails editMode={this.state.userDetailEditMode} user={this.props.user}/> : <></>
                 }
                 {
-                    this.props.displayUserRoles ? <h1>User Roles</h1> :  <></>
+                    this.props.displayState.displayUserRoles ? <h1>User Roles</h1> :  <></>
                 }
             </div>
         );
     }
 }
+*/
