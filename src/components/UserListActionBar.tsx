@@ -1,19 +1,14 @@
 import { ActionBar, Button } from 'fundamental-react';
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { Dispatch } from 'redux';
+import { displayUser } from '../store/actionCreators/canvasActionCreator';
 
 export const UserTableActionBar: React.FC = () => {
-    /* const [displayState, setDisplayState] = React.useState<IDisplayState | {}>()
-
+    const dispatch: Dispatch<any> = useDispatch()
     const handleCreate = () => {
-        console.log('handleCreate');
-        setDisplayState({
-            displayLogin: false,
-            displayUserList: false,
-            displayUserDetail: true,
-            displayUserRoles: false,
-        });
-        console.log(displayState);
-    } */
+        dispatch(displayUser());
+    }
 
     return (
         <div className='userActions'
@@ -24,9 +19,7 @@ export const UserTableActionBar: React.FC = () => {
                 title={'Users'}
                 description={'Manage application users'}
                 actions={(
-                    <Button
-                    // onClick={() => handleCreate()}
-                    >
+                    <Button onClick={() => handleCreate()}>
                         Create
                     </Button>
                 )}

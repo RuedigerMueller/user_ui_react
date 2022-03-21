@@ -19,13 +19,6 @@ export type DisplayState = {
     displayUserRoles: boolean,
 }
 
-export enum screenActions {
-    create,
-    edit,
-    delete,
-    assignRoles,
-}
-
 type Options = {
     key: string,
     text: string
@@ -47,6 +40,17 @@ type LoginState = {
 
 type GetUsersState = {
     userList: ReadonlyArray<User>,
+    error: string,
+}
+
+export enum UserDialogMode {
+    edit = 'Edit',
+    display = 'Display',
+}
+
+type UserState = {
+    user: User,
+    mode: string,
     error: string,
 }
 

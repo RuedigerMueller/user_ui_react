@@ -2,6 +2,7 @@ import { Select, Table } from 'fundamental-react';
 import React, { SyntheticEvent, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Dispatch } from 'redux';
+import { displayUser, displayUserRoles } from '../store/actionCreators/canvasActionCreator';
 import { getUsers } from '../store/actionCreators/getUsersActionCreator';
 import { useTypedSelector } from '../store/useTypeSelector';
 import { Options, User } from '../type';
@@ -22,6 +23,7 @@ export const UsersTable: React.FC = () => {
                 console.log('edit');
                 const user: User | undefined = userList.find((user) => user.id === userID);
                 //this.props.handleCanvasContentUpdate(screenActions.edit, user);
+                dispatch(displayUser());
                 break;
             }
             case 2: {
@@ -35,6 +37,7 @@ export const UsersTable: React.FC = () => {
             case 3: {
                 console.log('assign roles');
                 //this.props.handleCanvasContentUpdate(screenActions.assignRoles);
+                dispatch(displayUserRoles());
                 break;
             }
             default: {

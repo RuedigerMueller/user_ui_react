@@ -1,19 +1,17 @@
 import { FormGroup, FormInput, FormItem, FormLabel } from 'fundamental-react';
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { Dispatch } from 'redux';
+import { useTypedSelector } from '../store/useTypeSelector';
+import { UserDialogMode } from '../type';
 
-const initialState = Object.freeze({
-    user: {
-        id: -1,
-        username: '',
-        firstName: '',
-        lastName: '',
-        email: ''
-    },
-    editMode: false,
-});
 
 export const UserDetails: React.FC = () => {
-    const state = initialState;
+    const dispatch: Dispatch<any> = useDispatch();
+    const { user } = useTypedSelector((state) => state.user);
+    const { mode } = useTypedSelector((state) => state.user);
+    const { accessToken } = useTypedSelector((state) => state.login);
+
     return (
         <div className='userDetails'>
             <FormGroup>
@@ -23,9 +21,9 @@ export const UserDetails: React.FC = () => {
                     </FormLabel>
                     <FormInput
                         id='username'
-                        value={state.user.username}
+                        value={user.username}
                         name='username'
-                        disabled={!state.editMode}
+                        disabled={mode==='display'}
                     />
                 </FormItem>
                 <FormItem>
@@ -34,9 +32,9 @@ export const UserDetails: React.FC = () => {
                     </FormLabel>
                     <FormInput
                         id='firstName'
-                        value={state.user.firstName}
+                        value={user.firstName}
                         name='firstName'
-                        disabled={!state.editMode}
+                        disabled={mode==='display'}
                     />
                 </FormItem>
                 <FormItem>
@@ -45,9 +43,9 @@ export const UserDetails: React.FC = () => {
                     </FormLabel>
                     <FormInput
                         id='lastName'
-                        value={state.user.lastName}
+                        value={user.lastName}
                         name='lastName'
-                        disabled={!state.editMode}
+                        disabled={mode==='display'}
                     />
                 </FormItem>
                 <FormItem>
@@ -56,9 +54,9 @@ export const UserDetails: React.FC = () => {
                     </FormLabel>
                     <FormInput
                         id='email'
-                        value={state.user.email}
+                        value={user.email}
                         name='email'
-                        disabled={!state.editMode}
+                        disabled={mode==='display'}
                     />
                 </FormItem>
             </FormGroup>
