@@ -7,12 +7,12 @@ export type User = {
     email: string
 }
 
-interface ILoginInfo {
+export type LoginInfo = {
     username: string,
     password: string,
 }
 
-export interface IDisplayState {
+export type DisplayState = {
     displayLogin: boolean,
     displayUserList: boolean,
     displayUserDetail: boolean,
@@ -31,18 +31,28 @@ type Options = {
     text: string
 }
 
-type LoginState = {
-    loginInfo: ILoginInfo;
-    accessToken: string,
-}
-
 type AppState = {
-    displayState: IDisplayState
+    displayState: DisplayState
     //loginInfo: ILoginInfo
     accessToken: string
     user: User
     userList: ReadonlyArray<User>
     error: string
+}
+
+type LoginState = {
+    accessToken: string,
+    error: string,
+}
+
+type GetUsersState = {
+    userList: ReadonlyArray<User>,
+    error: string,
+}
+
+type CanvasState = {
+    displayState: DisplayState,
+    error: string,
 }
 
 type AppAction = {

@@ -2,8 +2,9 @@ import { Button, FormGroup, FormInput, FormItem, FormLabel } from 'fundamental-r
 import React, { useState } from 'react';
 import { useDispatch } from "react-redux";
 import { Dispatch } from "redux";
+import { displayUserList } from '../store/actionCreators/canvasActionCreator';
 import { login } from '../store/actionCreators/loginActionCreator';
-import { ILoginInfo } from '../type';
+import { LoginInfo } from '../type';
 
 
 export const Login: React.FC = () => {
@@ -33,11 +34,12 @@ export const Login: React.FC = () => {
     }
 
     const loginUser = async() => {
-        const loginInfo: ILoginInfo = {
+        const loginInfo: LoginInfo = {
             username: userName,
             password: password
         }
         await dispatch(login(loginInfo));
+        dispatch(displayUserList());
     }
 
     return (

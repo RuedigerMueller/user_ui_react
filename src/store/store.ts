@@ -8,7 +8,6 @@ export const store = createStore(
     {},
     composeWithDevTools(
         applyMiddleware(thunk)
-        // other store enhancers if any
       )
 )  
 ;

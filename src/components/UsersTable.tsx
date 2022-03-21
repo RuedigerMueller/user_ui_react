@@ -1,32 +1,15 @@
 import { Select, Table } from 'fundamental-react';
-import React, { SyntheticEvent } from 'react';
+import React, { SyntheticEvent, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { Dispatch } from 'redux';
+import { getUsers } from '../store/actionCreators/getUsersActionCreator';
 import { useTypedSelector } from '../store/useTypeSelector';
 import { Options, User } from '../type';
 
 export const UsersTable: React.FC = () => {
-    const { userList } = useTypedSelector((state) => state.login);
-    //dispatch: Dispatch<any> = useDispatch()
-
-    /*getUsers = () => {
-        const config = {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${this.props.accessToken}`
-            }
-        };
-
-        axios
-            .get('users', config)
-            .then(response => {
-                this.setState({
-                    users: response.data
-                })
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }
-    */
+    const dispatch: Dispatch<any> = useDispatch();
+    const { userList } = useTypedSelector((state) => state.getUsers);
+    const { accessToken } = useTypedSelector((state) => state.login);
 
     const onSelect = (event: SyntheticEvent, selectedOption: Options): void => {
         //ToDo: feels like a hack - there must be a better way to provide the row context
@@ -61,12 +44,9 @@ export const UsersTable: React.FC = () => {
         }
     }
 
-    /*
-
-    componentDidMount() {
-        this.getUsers();
-    }
-    */
+    useEffect(() => {
+        dispatch(getUsers(accessToken));
+    }, [dispatch]);
 
     return (
         <div className='userlist'>
@@ -90,9 +70,8 @@ export const UsersTable: React.FC = () => {
                                 user.email,
                                 <>
                                     <Select
-                                        id={`my special ID ${user.id}`}
                                         key={user.id}
-                                        //id={user.id.toString()}
+                                        id={user.id.toString()}
                                         aria-label='Primary'
                                         options={[
                                             { key: `${user.id}-1`, text: 'Edit' },

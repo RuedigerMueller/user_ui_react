@@ -1,8 +1,12 @@
 import { combineReducers } from "redux";
+import { canvasReducer } from "./canvasReducer";
+import { getUsersReducer } from "./getUsersReducer";
 import { loginReducer } from "./loginReducer";
 
 const reducers = combineReducers({
-    login: loginReducer
+    login: loginReducer,
+    getUsers: getUsersReducer,
+    canvas: canvasReducer,
 });
 
 export default reducers;

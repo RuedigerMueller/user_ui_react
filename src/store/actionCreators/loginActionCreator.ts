@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { Dispatch } from 'redux';
-import { ILoginInfo } from '../../type';
+import { LoginInfo } from '../../type';
 import { LoginAction, LoginActionType } from '../actionTypes/loginActionTypes';
 
-export const login = (loginInfo: ILoginInfo) => {
+export const login = (loginInfo: LoginInfo) => {
     return async (dispatch: Dispatch<LoginAction>) => {
         dispatch({
             type: LoginActionType.LOGIN_PENDING
@@ -26,7 +26,7 @@ export const login = (loginInfo: ILoginInfo) => {
 
             dispatch({
                 type: LoginActionType.LOGIN_SUCCESS,
-                payload: data
+                payload: data.access_token
             });
             
         } catch(err) {
