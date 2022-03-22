@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { Dispatch } from 'redux';
 import { displayUser, displayUserRoles } from '../store/actionCreators/canvasActionCreator';
 import { getUsers } from '../store/actionCreators/getUsersActionCreator';
+import { setUserEditMode } from '../store/actionCreators/userActionCreator';
 import { useTypedSelector } from '../store/useTypeSelector';
 import { Options, User } from '../type';
 
@@ -22,8 +23,12 @@ export const UsersTable: React.FC = () => {
             case 1: {
                 console.log('edit');
                 const user: User | undefined = userList.find((user) => user.id === userID);
-                //this.props.handleCanvasContentUpdate(screenActions.edit, user);
-                dispatch(displayUser());
+                if (user) {
+                    dispatch(displayUser());
+                    dispatch(setUserEditMode(user));
+                } else {
+                    console.log('user not found');
+                }
                 break;
             }
             case 2: {

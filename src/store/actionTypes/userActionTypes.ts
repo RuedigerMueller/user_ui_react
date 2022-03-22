@@ -1,12 +1,17 @@
 import { User } from "../../type";
 
 export enum UserActionType {
-    USER_UPDATE = 'USER_UPDATE',
+    SET_EDIT_MODE = 'SET_EDIT_MODE',
+    SET_CREATE_MODE = 'SET_CREATE_MODE'
 }
 
-interface userUpdate {
-    type: UserActionType.USER_UPDATE,
+interface setEditMode {
+    type: UserActionType.SET_EDIT_MODE,
     payload: User,
+} 
+
+interface setCreateMode {
+    type: UserActionType.SET_CREATE_MODE,
 }   
 
-export type UserAction = userUpdate;
+export type UserAction = setEditMode | setCreateMode;

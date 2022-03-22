@@ -1,25 +1,35 @@
-import { UserDialogMode, UserState } from "../../type";
+import { User, UserState } from "../../type";
 import { UserAction, UserActionType } from "../actionTypes/userActionTypes";
 
+const user: User = {
+    id: -1,
+    username: '',
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+}
+
 const initialState: UserState = {
-    user: {
-        id: -1,
-        username: '',
-        firstName: '',
-        lastName: '',
-        email: '',
-        password: '',
-    },
+    user: user,    
     mode: 'display',
     error: '',
 }
 
 export const userReducer = (state: UserState = initialState, action: UserAction): UserState => {
-    switch(action.type) {
-        case UserActionType.USER_UPDATE:
-             return {
-                 ...state,
-             }
+    switch (action.type) {
+        case UserActionType.SET_EDIT_MODE:
+            return {
+                ...state,
+                user: action.payload,
+                mode: 'edit'
+            }
+        case UserActionType.SET_CREATE_MODE:
+            return {
+                ...state,
+                user: user,
+                mode: 'edit'
+            }
         default:
             return state;
     }
