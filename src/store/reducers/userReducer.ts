@@ -11,7 +11,7 @@ const user: User = {
 }
 
 const initialState: UserState = {
-    user: user,    
+    user: user,
     mode: 'display',
     error: '',
 }
@@ -28,7 +28,13 @@ export const userReducer = (state: UserState = initialState, action: UserAction)
             return {
                 ...state,
                 user: user,
-                mode: 'edit'
+                mode: 'create'
+            }
+        case UserActionType.SET_DISPLAY_MODE:
+            return {
+                ...state,
+                user: action.payload,
+                mode: 'display'
             }
         default:
             return state;

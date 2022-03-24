@@ -5,12 +5,6 @@ import { App } from './App';
 import './index.css';
 import { store } from './store/store';
 
-/*
-const store: Store<AppState, AppAction> & {
-  dispatch: DispatchType
-} = createStore(reducer)
-*/
-
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

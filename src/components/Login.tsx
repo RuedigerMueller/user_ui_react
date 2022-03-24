@@ -4,23 +4,22 @@ import { useDispatch } from "react-redux";
 import { Dispatch } from "redux";
 import { displayUserList } from '../store/actionCreators/canvasActionCreator';
 import { login } from '../store/actionCreators/loginActionCreator';
-import { LoginInfo } from '../type';
 
 
 export const Login: React.FC = () => {
     const dispatch: Dispatch<any> = useDispatch()
-    const [userName, setUserName] = useState('');
-    const [password, setPassword] = useState('');
-    
+    const [loginInfo, setLoginInfo] = useState({
+        username: '',
+        password: ''
+    });
+
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const key = event.target.name;
-        if (key === 'username') {
-            setUserName(event.target.value);
-        }
-        if (key === 'password') {
-            setPassword(event.target.value);
-        }
+        const { name, value } = event.target;
+        setLoginInfo(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
     }
 
     const handleKeyPress = (event: React.KeyboardEvent) => {
@@ -33,11 +32,7 @@ export const Login: React.FC = () => {
         loginUser();
     }
 
-    const loginUser = async() => {
-        const loginInfo: LoginInfo = {
-            username: userName,
-            password: password
-        }
+    const loginUser = async () => {
         await dispatch(login(loginInfo));
         dispatch(displayUserList());
     }
@@ -56,7 +51,7 @@ export const Login: React.FC = () => {
                     </FormLabel>
                     <FormInput
                         id='username'
-                        value={userName}
+                        value={loginInfo.username}
                         name='username'
                         onChange={handleChange}
                         onKeyPress={handleKeyPress}
@@ -69,7 +64,7 @@ export const Login: React.FC = () => {
                     <FormInput
                         type='password'
                         id='password'
-                        value={password}
+                        value={loginInfo.password}
                         name='password'
                         onChange={handleChange}
                         onKeyPress={handleKeyPress}

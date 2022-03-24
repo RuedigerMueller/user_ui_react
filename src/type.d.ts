@@ -43,11 +43,6 @@ type GetUsersState = {
     error: string,
 }
 
-export enum UserDialogMode {
-    edit = 'Edit',
-    display = 'Display',
-}
-
 type UserState = {
     user: User,
     mode: string,
@@ -58,10 +53,3 @@ type CanvasState = {
     displayState: DisplayState,
     error: string,
 }
-
-type AppAction = {
-    type: string
-    user?: User
-}
-
-type DispatchType = (args: AppAction) => AppAction

@@ -18,3 +18,12 @@ export const setUserEditMode = (user: User) => {
         });
     }
 }
+
+export const setUserDisplayMode = (user: User) => {
+    return async (dispatch: Dispatch<UserAction>) => {
+        dispatch({
+            type: UserActionType.SET_DISPLAY_MODE,
+            payload: user
+        });
+    }
+}

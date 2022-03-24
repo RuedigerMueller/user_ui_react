@@ -54,7 +54,7 @@ export const UsersTable: React.FC = () => {
 
     useEffect(() => {
         dispatch(getUsers(accessToken));
-    }, [dispatch]);
+    }, [dispatch, accessToken]);
 
     return (
         <div className='userlist'>
