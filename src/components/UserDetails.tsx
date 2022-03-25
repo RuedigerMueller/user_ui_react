@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Dispatch } from 'redux';
 import { displayUserList } from '../store/actionCreators/canvasActionCreator';
+import { createUser, updateUser } from '../store/actionCreators/userActionCreator';
 import { useTypedSelector } from '../store/useTypeSelector';
 import { User } from '../type';
 
@@ -10,11 +11,12 @@ export const UserDetails: React.FC = () => {
     const dispatch: Dispatch<any> = useDispatch();
     const { user } = useTypedSelector((state) => state.user);
     const { mode } = useTypedSelector((state) => state.user);
+    const { accessToken } = useTypedSelector((state) => state.login);
     const [localUser, setLocalUser] = useState({ 
         username: user.username, 
         firstName: user.firstName,
         lastName: user.lastName,
-        eMail: user.email 
+        email: user.email 
     });
 
     const buttonTextUpdate: string = 'Update';
@@ -63,21 +65,21 @@ export const UserDetails: React.FC = () => {
         console.log(action);
         switch (action) {
             case buttonTextCreate: {
-                const createUser: User = {
+                const newUser: User = {
                     ...user,
                     ...localUser,
                 };
-                console.log(createUser);
-                //displatch(createUser(createUser));
+                console.log(newUser);
+                dispatch(createUser(newUser, accessToken));
                 break;
             }
             case buttonTextUpdate: {
-                const updateUser: User = {
+                const newUser: User = {
                     ...user,
                     ...localUser,
                 };
-                console.log(updateUser);
-                //displatch(updateUser(updateUser));
+                console.log(newUser);
+                dispatch(updateUser(newUser, accessToken));
                 break;
             }
             case buttonTextClose: {
@@ -86,8 +88,6 @@ export const UserDetails: React.FC = () => {
             default:
                 console.log('Unexpected action');
         }
-
-        // await dispatch(login(loginInfo));
         dispatch(displayUserList());
     }
 
@@ -134,13 +134,13 @@ export const UserDetails: React.FC = () => {
                     />
                 </FormItem>
                 <FormItem>
-                    <FormLabel htmlFor='eMail' required>
+                    <FormLabel htmlFor='email' required>
                         eMail:
                     </FormLabel>
                     <FormInput
-                        id='eMail'
-                        value={localUser.eMail}
-                        name='eMail'
+                        id='email'
+                        value={localUser.email}
+                        name='email'
                         disabled={mode === 'display'}
                         onChange={handleChange}
                         onKeyPress={handleKeyPress}

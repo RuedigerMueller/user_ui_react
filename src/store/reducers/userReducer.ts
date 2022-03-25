@@ -36,6 +36,34 @@ export const userReducer = (state: UserState = initialState, action: UserAction)
                 user: action.payload,
                 mode: 'display'
             }
+        case UserActionType.USER_UPDATE_PENDING:
+            return {
+                ...state,
+            }
+        case UserActionType.USER_UPDATE_SUCCESS:
+            return {
+                ...state,
+                user: action.payload
+            }
+        case UserActionType.USER_UPDATE_FAIL:
+            return {
+                ...state,
+                error: action.payload
+            }
+        case UserActionType.USER_CREATE_PENDING:
+            return {
+                ...state,
+            }
+        case UserActionType.USER_CREATE_SUCCESS:
+            return {
+                ...state,
+                user: action.payload
+            }
+        case UserActionType.USER_CREATE_FAIL:
+            return {
+                ...state,
+                error: action.payload
+            }
         default:
             return state;
     }

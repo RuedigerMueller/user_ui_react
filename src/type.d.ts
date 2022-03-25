@@ -7,12 +7,12 @@ export type User = {
     email: string
 }
 
-export type LoginInfo = {
+type LoginInfo = {
     username: string,
     password: string,
 }
 
-export type DisplayState = {
+type DisplayState = {
     displayLogin: boolean,
     displayUserList: boolean,
     displayUserDetail: boolean,
@@ -26,7 +26,6 @@ type Options = {
 
 type AppState = {
     displayState: DisplayState
-    //loginInfo: ILoginInfo
     accessToken: string
     user: User
     userList: ReadonlyArray<User>
@@ -53,3 +52,12 @@ type CanvasState = {
     displayState: DisplayState,
     error: string,
 }
+
+export enum MODES {
+    EDIT = 'edit',
+    DISPLAY = 'display',
+    CREATE = 'create'
+}
+
+
+export type MODE = MODES
