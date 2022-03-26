@@ -57,19 +57,16 @@ export const UserDetails: React.FC = () => {
 
     const handleButtonClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         const button: HTMLButtonElement = event.target as HTMLButtonElement;
-        console.log(button.innerText);
         next(button.innerText);
     }
 
     const next = async (action: string) => {
-        console.log(action);
         switch (action) {
             case buttonTextCreate: {
                 const newUser: User = {
                     ...user,
                     ...localUser,
                 };
-                console.log(newUser);
                 dispatch(createUser(newUser, accessToken));
                 break;
             }
@@ -78,7 +75,6 @@ export const UserDetails: React.FC = () => {
                     ...user,
                     ...localUser,
                 };
-                console.log(newUser);
                 dispatch(updateUser(newUser, accessToken));
                 break;
             }

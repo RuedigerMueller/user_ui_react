@@ -37,7 +37,7 @@ type LoginState = {
     error: string,
 }
 
-type GetUsersState = {
+type UsersState = {
     userList: ReadonlyArray<User>,
     error: string,
 }

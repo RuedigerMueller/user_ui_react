@@ -3,14 +3,14 @@ import React, { SyntheticEvent, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Dispatch } from 'redux';
 import { displayUser, displayUserRoles } from '../store/actionCreators/canvasActionCreator';
-import { getUsers } from '../store/actionCreators/getUsersActionCreator';
+import { getUsers } from '../store/actionCreators/usersActionCreator';
 import { setUserEditMode } from '../store/actionCreators/userActionCreator';
 import { useTypedSelector } from '../store/useTypeSelector';
 import { Options, User } from '../type';
 
 export const UsersTable: React.FC = () => {
     const dispatch: Dispatch<any> = useDispatch();
-    const { userList } = useTypedSelector((state) => state.getUsers);
+    const { userList } = useTypedSelector((state) => state.users);
     const { accessToken } = useTypedSelector((state) => state.login);
 
     const onSelect = (event: SyntheticEvent, selectedOption: Options): void => {

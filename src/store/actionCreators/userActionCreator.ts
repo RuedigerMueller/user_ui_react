@@ -2,6 +2,7 @@ import axios from 'axios';
 import { Dispatch } from 'redux';
 import { User } from '../../type';
 import { UserAction, UserActionType } from '../actionTypes/userActionTypes';
+import { addUser, updateUsers } from './usersActionCreator';
 
 export const setUserCreateMode = () => {
     return async (dispatch: Dispatch<UserAction>) => {
@@ -56,6 +57,7 @@ export const updateUser = (user: User, accessToken: string) => {
                 type: UserActionType.USER_UPDATE_SUCCESS,
                 payload: data.user
             });
+            updateUsers(data.user);
             
         } catch(err) {
             console.log('error');
@@ -80,7 +82,6 @@ export const createUser = (user: User, accessToken: string) => {
                     'Authorization': `Bearer ${accessToken}`
                 }
             };
-            console.log(user);
             const { data } = await axios.post(
                 `users`,
                 {
@@ -96,6 +97,8 @@ export const createUser = (user: User, accessToken: string) => {
                 type: UserActionType.USER_CREATE_SUCCESS,
                 payload: data.user
             });
+            console.log('Before addUser', data.user);
+            addUser(data.user);
             
         } catch(err) {
             console.log('error');
@@ -106,3 +109,5 @@ export const createUser = (user: User, accessToken: string) => {
         }
     }
 }
+
+
