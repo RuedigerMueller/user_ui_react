@@ -1,21 +1,19 @@
 @font-face {
   font-family: "72";
-  src: 
-    url("../public/72_Web/72-Bold.woff") format("woff"),
+  src: url("../public/72_Web/72-Bold.woff") format("woff"),
     url("../public/72_Web/72-Light.woff") format("woff"),
     url("../public/72_Web/72-Regular.woff") format("woff"),
     url("../public/72_Web/72-Bold.woff2") format("woff2"),
     url("../public/72_Web/72-Light.woff2") format("woff2"),
     url("../public/72_Web/72-Regular.woff2") format("woff2");
-    
+
   font-weight: normal;
   font-style: normal;
-};
+}
 
 @font-face {
   font-family: "SAP-icons";
-  src:
-    url("../public/SAP-icons_4.12/Fonts/SAP-icons.woff") format("woff"),
+  src: url("../public/SAP-icons_4.12/Fonts/SAP-icons.woff") format("woff"),
     url("../public/SAP-icons_4.12/Fonts/SAP-icons.woff2") format("woff2"),
     url("../public/SAP-icons_4.12/Fonts/SAP-icons.ttf") format("ttf");
   font-weight: normal;
