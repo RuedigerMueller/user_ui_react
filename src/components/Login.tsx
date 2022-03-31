@@ -7,12 +7,14 @@ import {
 } from "fundamental-react";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { Navigate } from "react-router";
 import { Dispatch } from "redux";
-import { displayUserList } from "../redux/actionCreators/canvasActionCreator";
 import { login } from "../redux/actionCreators/loginActionCreator";
+import { useTypedSelector } from "../redux/useTypeSelector";
 
 export const Login: React.FC = () => {
   const dispatch: Dispatch<any> = useDispatch();
+  const { accessToken } = useTypedSelector((state) => state.login);
   const [loginInfo, setLoginInfo] = useState({
     username: "",
     password: "",
@@ -40,7 +42,6 @@ export const Login: React.FC = () => {
 
   const loginUser = async () => {
     await dispatch(login(loginInfo));
-    dispatch(displayUserList());
   };
 
   return (
@@ -52,6 +53,7 @@ export const Login: React.FC = () => {
         marginRight: "auto",
       }}
     >
+      {accessToken !== "" && <Navigate to="/users" />}
       <FormGroup>
         <FormItem>
           <FormLabel htmlFor="username" required>

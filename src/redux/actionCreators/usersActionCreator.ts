@@ -1,10 +1,16 @@
 import axios from "axios";
 import { Dispatch } from "redux";
 import { User } from "../../type";
-import { UsersAction, UsersActionType } from "../actionTypes/usersActionTypes";
+import { UsersActions, UsersActionType } from "../actionTypes/usersActionTypes";
+import { RootState } from "../reducers/combine";
 
-export const createUser = (accessToken: string, user: User) => {
-  return async (dispatch: Dispatch<UsersAction>) => {
+export const createUser = (user: User) => {
+  return async (
+    dispatch: Dispatch<UsersActions>,
+    getState: () => RootState
+  ) => {
+    const state: RootState = getState();
+    const accessToken: string = state.login.accessToken;
     dispatch({
       type: UsersActionType.USERS_CREATE_PENDING,
     });
@@ -43,8 +49,13 @@ export const createUser = (accessToken: string, user: User) => {
   };
 };
 
-export const readUsers = (accessToken: string) => {
-  return async (dispatch: Dispatch<UsersAction>) => {
+export const readUsers = () => {
+  return async (
+    dispatch: Dispatch<UsersActions>,
+    getState: () => RootState
+  ) => {
+    const state: RootState = getState();
+    const accessToken: string = state.login.accessToken;
     dispatch({
       type: UsersActionType.USERS_READ_PENDING,
     });
@@ -71,8 +82,13 @@ export const readUsers = (accessToken: string) => {
   };
 };
 
-export const updateUser = (accessToken: string, user: User) => {
-  return async (dispatch: Dispatch<UsersAction>) => {
+export const updateUser = (user: User) => {
+  return async (
+    dispatch: Dispatch<UsersActions>,
+    getState: () => RootState
+  ) => {
+    const state: RootState = getState();
+    const accessToken: string = state.login.accessToken;
     dispatch({
       type: UsersActionType.USERS_UPDATE_PENDING,
     });
@@ -109,8 +125,13 @@ export const updateUser = (accessToken: string, user: User) => {
   };
 };
 
-export const deleteUser = (userID: number, accessToken: string) => {
-  return async (dispatch: Dispatch<UsersAction>) => {
+export const deleteUser = (userID: number) => {
+  return async (
+    dispatch: Dispatch<UsersActions>,
+    getState: () => RootState
+  ) => {
+    const state: RootState = getState();
+    const accessToken: string = state.login.accessToken;
     dispatch({
       type: UsersActionType.USERS_DELETE_PENDING,
     });
@@ -124,11 +145,11 @@ export const deleteUser = (userID: number, accessToken: string) => {
       };
       console.log("Deleting from backend");
       const { data } = await axios.delete(`users/${userID}`, config);
-      console.log("Deleted from backend");
+      console.log("Deleted from backend", data);
       dispatch({
         type: UsersActionType.USERS_DELETE_SUCCESS,
+        userID: userID,
       });
-      //deleteUserFromUserList(data.user);
     } catch (err) {
       console.log("error");
       dispatch({

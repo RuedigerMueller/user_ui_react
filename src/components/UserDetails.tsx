@@ -6,32 +6,19 @@ import {
   FormLabel,
 } from "fundamental-react";
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { Dispatch } from "redux";
-import { displayUserList } from "../redux/actionCreators/canvasActionCreator";
+import { connect, ConnectedProps } from "react-redux";
 import {
   createUser,
   updateUser,
 } from "../redux/actionCreators/usersActionCreator";
-/* import {
+import { AppState } from "../type";
+
+const UserDetails: React.FC<UserProps> = ({
   createUser,
   updateUser,
-} from "../redux/actionCreators/userActionCreator"; */
-import { useTypedSelector } from "../redux/useTypeSelector";
-import { User } from "../type";
-
-export const UserDetails: React.FC = () => {
-  const dispatch: Dispatch<any> = useDispatch();
-  // const { user } = useTypedSelector((state) => state.user);
-  // const { mode } = useTypedSelector((state) => state.user);
-  const { accessToken } = useTypedSelector((state) => state.login);
-  const { users } = useTypedSelector((state) => state.users);
-  const [localUser, setLocalUser] = useState({
-    username: "",
-    firstName: "",
-    lastName: "",
-    email: "",
-  });
+  ...props
+}: UserProps) => {
+  const [user, setUser] = useState({ ...props.user });
 
   const buttonTextUpdate: string = "Update";
   const buttonTextCreate: string = "Create";
@@ -58,7 +45,7 @@ export const UserDetails: React.FC = () => {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    setLocalUser((prevState) => ({
+    setUser((prevState) => ({
       ...prevState,
       [name]: value,
     }));
@@ -80,19 +67,11 @@ export const UserDetails: React.FC = () => {
   const next = async (action: string) => {
     switch (action) {
       case buttonTextCreate: {
-        /* const newUser: User = {
-          ...user,
-          ...localUser,
-        };
-        dispatch(createUser(accessToken, newUser)); */
+        createUser(user);
         break;
       }
       case buttonTextUpdate: {
-        /* const newUser: User = {
-          ...user,
-          ...localUser,
-        };
-        dispatch(updateUser(accessToken, newUser)); */
+        updateUser(user);
         break;
       }
       case buttonTextClose: {
@@ -101,7 +80,6 @@ export const UserDetails: React.FC = () => {
       default:
         console.log("Unexpected action");
     }
-    dispatch(displayUserList());
   };
 
   return (
@@ -113,7 +91,7 @@ export const UserDetails: React.FC = () => {
           </FormLabel>
           <FormInput
             id="username"
-            value={localUser.username}
+            value={user.username}
             name="username"
             disabled={mode === "display" || mode === "edit"}
             onChange={handleChange}
@@ -126,7 +104,7 @@ export const UserDetails: React.FC = () => {
           </FormLabel>
           <FormInput
             id="firstName"
-            value={localUser.firstName}
+            value={user.firstName}
             name="firstName"
             disabled={mode === "display"}
             onChange={handleChange}
@@ -139,7 +117,7 @@ export const UserDetails: React.FC = () => {
           </FormLabel>
           <FormInput
             id="lastName"
-            value={localUser.lastName}
+            value={user.lastName}
             name="lastName"
             disabled={mode === "display"}
             onChange={handleChange}
@@ -152,7 +130,7 @@ export const UserDetails: React.FC = () => {
           </FormLabel>
           <FormInput
             id="email"
-            value={localUser.email}
+            value={user.email}
             name="email"
             disabled={mode === "display"}
             onChange={handleChange}
@@ -182,3 +160,18 @@ export const UserDetails: React.FC = () => {
     </div>
   );
 };
+
+const mapStateToProps = (state: AppState) => ({
+  user: state.user,
+});
+
+const mapDispatchToProps = {
+  createUser,
+  updateUser,
+};
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+type UserProps = ConnectedProps<typeof connector>;
+
+export default connector(UserDetails);

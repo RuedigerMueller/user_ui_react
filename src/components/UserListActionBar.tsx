@@ -1,15 +1,12 @@
 import { ActionBar, Button } from "fundamental-react";
-import React from "react";
-import { useDispatch } from "react-redux";
-import { Dispatch } from "redux";
-import { displayUser } from "../redux/actionCreators/canvasActionCreator";
-//import { setUserCreateMode } from "../redux/actionCreators/userActionCreator";
+import React, { useState } from "react";
+import { Navigate } from "react-router-dom";
 
 export const UserTableActionBar: React.FC = () => {
-  const dispatch: Dispatch<any> = useDispatch();
+  const [redirectToUserDetails, setRedirectToUserDetails] = useState(false);
+
   const handleCreate = () => {
-    dispatch(displayUser());
-    //dispatch(setUserCreateMode());
+    setRedirectToUserDetails(() => true);
   };
 
   return (
@@ -19,6 +16,7 @@ export const UserTableActionBar: React.FC = () => {
         textAlign: "start",
       }}
     >
+      {redirectToUserDetails && <Navigate to="/user" />}
       <ActionBar
         title={"Users"}
         description={"Manage application users"}

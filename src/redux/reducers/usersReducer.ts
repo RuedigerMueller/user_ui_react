@@ -1,5 +1,5 @@
 import { User, UsersState } from "../../type";
-import { UsersAction, UsersActionType } from "../actionTypes/usersActionTypes";
+import { UsersActions, UsersActionType } from "../actionTypes/usersActionTypes";
 
 const initialState: UsersState = {
   users: [],
@@ -8,7 +8,7 @@ const initialState: UsersState = {
 
 export const usersReducer = (
   state: UsersState = initialState,
-  action: UsersAction
+  action: UsersActions
 ): UsersState => {
   switch (action.type) {
     case UsersActionType.USERS_READ_PENDING:
@@ -21,6 +21,21 @@ export const usersReducer = (
         users: action.users,
       };
     case UsersActionType.USERS_READ_FAIL:
+      return {
+        ...state,
+        error: action.errorMessage,
+      };
+
+    case UsersActionType.USERS_DELETE_PENDING:
+      return {
+        ...state,
+      };
+    case UsersActionType.USERS_DELETE_SUCCESS:
+      return {
+        ...state,
+        users: state.users.filter((user) => user.id !== action.userID),
+      };
+    case UsersActionType.USERS_DELETE_FAIL:
       return {
         ...state,
         error: action.errorMessage,

@@ -3,10 +3,6 @@ import React, { SyntheticEvent, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Dispatch } from "redux";
 import {
-  displayUser,
-  displayUserRoles,
-} from "../redux/actionCreators/canvasActionCreator";
-import {
   deleteUser,
   readUsers,
 } from "../redux/actionCreators/usersActionCreator";
@@ -34,7 +30,6 @@ export const UsersTable: React.FC = () => {
         console.log("edit");
         const user: User | undefined = users.find((user) => user.id === userID);
         if (user) {
-          dispatch(displayUser());
           //dispatch(setUserEditMode(user));
         } else {
           console.log("user not found");
@@ -43,13 +38,12 @@ export const UsersTable: React.FC = () => {
       }
       case 2: {
         console.log("delete");
-        dispatch(deleteUser(userID, accessToken));
+        dispatch(deleteUser(userID));
         break;
       }
       case 3: {
         console.log("assign roles");
         //this.props.handleCanvasContentUpdate(screenActions.assignRoles);
-        dispatch(displayUserRoles());
         break;
       }
       default: {
@@ -60,7 +54,7 @@ export const UsersTable: React.FC = () => {
   };
 
   useEffect(() => {
-    dispatch(readUsers(accessToken));
+    dispatch(readUsers());
   }, [dispatch, accessToken]);
 
   return (

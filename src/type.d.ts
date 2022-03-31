@@ -1,22 +1,15 @@
-export type User = {
+export interface User {
   id: number;
   username: string;
   password: string;
   firstName: string;
   lastName: string;
   email: string;
-};
+}
 
 type LoginInfo = {
   username: string;
   password: string;
-};
-
-type DisplayState = {
-  displayLogin: boolean;
-  displayUserList: boolean;
-  displayUserDetail: boolean;
-  displayUserRoles: boolean;
 };
 
 type Options = {
@@ -25,7 +18,7 @@ type Options = {
 };
 
 type AppState = {
-  displayState: DisplayState;
+  //displayState: DisplayState;
   accessToken: string;
   user: User;
   userList: ReadonlyArray<User>;
@@ -45,11 +38,6 @@ type UsersState = {
 type UserState = {
   user: User;
   mode: string;
-  error: string;
-};
-
-type CanvasState = {
-  displayState: DisplayState;
   error: string;
 };
 

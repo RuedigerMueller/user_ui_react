@@ -66,6 +66,7 @@ interface usersDeletePendingAction {
 
 interface usersDeleteSuccessAction {
   type: UsersActionType.USERS_DELETE_SUCCESS;
+  userID: number;
 }
 
 interface usersDeleteFailAction {
@@ -73,7 +74,7 @@ interface usersDeleteFailAction {
   errorMessage: string;
 }
 
-export type UsersAction =
+export type UsersActions =
   | usersCreatePendingAction
   | usersCreateSuccessAction
   | usersCreateFailAction

@@ -1,24 +1,36 @@
 import axios from "axios";
 import { Shellbar } from "fundamental-react";
 import React from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-import { Canvas } from "./components/Canvas";
+import { Login } from "./components/Login";
+import { PageNotFound } from "./components/PageNotFound";
+import UserDetails from "./components/UserDetails";
+
+import { UserList } from "./components/UserList";
 
 axios.defaults.baseURL = "http://localhost:3001/";
 
 export const App: React.FC = () => {
   return (
     <div className="App">
-      <Shellbar
-        logo={
-          <img
-            alt="SAP"
-            src="//unpkg.com/fundamental-styles/dist/images/sap-logo.png"
-          />
-        }
-        productTitle="User UI - React"
-      />
-      <Canvas />
+      <BrowserRouter>
+        <Shellbar
+          logo={
+            <img
+              alt="SAP"
+              src="//unpkg.com/fundamental-styles/dist/images/sap-logo.png"
+            />
+          }
+          productTitle="User UI - React"
+        />
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/users" element={<UserList />} />
+          <Route path="/user" element={<UserDetails />} />
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 };
