@@ -27,6 +27,7 @@ export const App: React.FC = () => {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/users" element={<UserList />} />
+          <Route path="/user/:userID" element={<UserDetails />} />
           <Route path="/user" element={<UserDetails />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>

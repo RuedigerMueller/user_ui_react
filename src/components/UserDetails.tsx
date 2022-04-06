@@ -5,42 +5,69 @@ import {
   FormItem,
   FormLabel,
 } from "fundamental-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect, ConnectedProps } from "react-redux";
+import { useParams } from "react-router-dom";
 import {
   createUser,
   updateUser,
 } from "../redux/actionCreators/usersActionCreator";
-import { AppState } from "../type";
+import { RootState } from "../redux/reducers/combine";
+import { useTypedSelector } from "../redux/useTypeSelector";
+import { AppState, User } from "../type";
+
+const initialUser: User = {
+  id: -1,
+  username: "",
+  password: "",
+  firstName: "",
+  lastName: "",
+  email: "",
+};
 
 const UserDetails: React.FC<UserProps> = ({
   createUser,
   updateUser,
-  ...props
 }: UserProps) => {
-  const [user, setUser] = useState({ ...props.user });
+  const { userID } = useParams();
+  const [user, setUser] = useState<User>(initialUser);
+  const { users } = useTypedSelector((state) => state.users);
 
   const buttonTextUpdate: string = "Update";
   const buttonTextCreate: string = "Create";
   const buttonTextClose: string = "Close";
 
+  useEffect(() => {
+    if (userID) {
+      const theUser: User | undefined = users.find(
+        (user) => user.id === parseInt(userID)
+      );
+      if (theUser) {
+        setUser(theUser);
+      }
+    }
+  }, [userID]);
+
   let buttonText: string = "";
-  const mode: string = "edit";
-  switch (mode) {
-    case "edit": {
-      buttonText = buttonTextUpdate;
-      break;
+  let mode: string = "";
+  if (user) {
+    mode = user.id ? "edit" : "create";
+    switch (mode) {
+      case "edit": {
+        buttonText = buttonTextUpdate;
+        break;
+      }
+      case "display": {
+        buttonText = buttonTextClose;
+        break;
+      }
+      case "create": {
+        buttonText = buttonTextCreate;
+        break;
+      }
+      default:
+        console.log("Unexpected mode");
     }
-    case "display": {
-      buttonText = buttonTextClose;
-      break;
-    }
-    case "create": {
-      buttonText = buttonTextCreate;
-      break;
-    }
-    default:
-      console.log("Unexpected mode");
   }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -161,9 +188,28 @@ const UserDetails: React.FC<UserProps> = ({
   );
 };
 
-const mapStateToProps = (state: AppState) => ({
-  user: state.user,
-});
+const mapStateToProps = (state: RootState) => {
+  /* const userID = ownProps.match.params.userID;
+  const newUser: User = {
+    id: -1,
+    username: "",
+    password: "",
+    firstName: "",
+    lastName: "",
+    email: "",
+  };
+
+  const user =
+    userID && state.users.users.length > 0
+      ? state.users.users.find((user) => user.id === userID) || newUser
+      : newUser;
+
+  return {
+    user,
+    userList: state.users.users,
+  }; */
+  return state;
+};
 
 const mapDispatchToProps = {
   createUser,

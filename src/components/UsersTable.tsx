@@ -1,6 +1,7 @@
 import { Select, Table } from "fundamental-react";
-import React, { SyntheticEvent, useEffect } from "react";
+import React, { SyntheticEvent, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { Dispatch } from "redux";
 import {
   deleteUser,
@@ -12,6 +13,8 @@ import { Options, User } from "../type";
 
 export const UsersTable: React.FC = () => {
   const dispatch: Dispatch<any> = useDispatch();
+  const [redirectToUserDetails, setRedirectToUserDetails] = useState(false);
+  const [userID, setUserID] = useState(-1);
   const { users } = useTypedSelector((state) => state.users);
   const { accessToken } = useTypedSelector((state) => state.login);
 
@@ -30,7 +33,8 @@ export const UsersTable: React.FC = () => {
         console.log("edit");
         const user: User | undefined = users.find((user) => user.id === userID);
         if (user) {
-          //dispatch(setUserEditMode(user));
+          setUserID(user.id);
+          setRedirectToUserDetails(() => true);
         } else {
           console.log("user not found");
         }
@@ -57,8 +61,11 @@ export const UsersTable: React.FC = () => {
     dispatch(readUsers());
   }, [dispatch, accessToken]);
 
+  let navigate = useNavigate();
+
   return (
     <div className="userlist">
+      {redirectToUserDetails && navigate(`../user/${userID}`)}
       <Table
         headers={[
           "ID",
