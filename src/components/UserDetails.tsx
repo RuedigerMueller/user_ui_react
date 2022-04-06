@@ -14,7 +14,7 @@ import {
 } from "../redux/actionCreators/usersActionCreator";
 import { RootState } from "../redux/reducers/combine";
 import { useTypedSelector } from "../redux/useTypeSelector";
-import { AppState, User } from "../type";
+import { User } from "../type";
 
 const initialUser: User = {
   id: -1,
@@ -46,7 +46,7 @@ const UserDetails: React.FC<UserProps> = ({
         setUser(theUser);
       }
     }
-  }, [userID]);
+  }, [users, userID]);
 
   let buttonText: string = "";
   let mode: string = "";
