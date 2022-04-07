@@ -13,7 +13,6 @@ import {
   updateUser,
 } from "../redux/actionCreators/usersActionCreator";
 import { RootState } from "../redux/reducers/combine";
-import { useTypedSelector } from "../redux/useTypeSelector";
 import { User } from "../type";
 
 const initialUser: User = {
@@ -26,12 +25,12 @@ const initialUser: User = {
 };
 
 const UserDetails: React.FC<UserProps> = ({
+  users,
   createUser,
   updateUser,
 }: UserProps) => {
   const { userID } = useParams();
   const [user, setUser] = useState<User>(initialUser);
-  const { users } = useTypedSelector((state) => state.users);
 
   const buttonTextUpdate: string = "Update";
   const buttonTextCreate: string = "Create";
@@ -51,7 +50,7 @@ const UserDetails: React.FC<UserProps> = ({
   let buttonText: string = "";
   let mode: string = "";
   if (user) {
-    mode = user.id ? "edit" : "create";
+    mode = user.id !== -1 ? "edit" : "create";
     switch (mode) {
       case "edit": {
         buttonText = buttonTextUpdate;
@@ -189,26 +188,9 @@ const UserDetails: React.FC<UserProps> = ({
 };
 
 const mapStateToProps = (state: RootState) => {
-  /* const userID = ownProps.match.params.userID;
-  const newUser: User = {
-    id: -1,
-    username: "",
-    password: "",
-    firstName: "",
-    lastName: "",
-    email: "",
-  };
-
-  const user =
-    userID && state.users.users.length > 0
-      ? state.users.users.find((user) => user.id === userID) || newUser
-      : newUser;
-
   return {
-    user,
-    userList: state.users.users,
-  }; */
-  return state;
+    users: state.userList.users,
+  };
 };
 
 const mapDispatchToProps = {

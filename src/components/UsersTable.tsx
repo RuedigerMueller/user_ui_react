@@ -15,7 +15,7 @@ export const UsersTable: React.FC = () => {
   const dispatch: Dispatch<any> = useDispatch();
   const [redirectToUserDetails, setRedirectToUserDetails] = useState(false);
   const [userID, setUserID] = useState(-1);
-  const { users } = useTypedSelector((state) => state.users);
+  const { users } = useTypedSelector((state) => state.userList);
   const { accessToken } = useTypedSelector((state) => state.login);
 
   const onSelect = (event: SyntheticEvent, selectedOption: Options): void => {
