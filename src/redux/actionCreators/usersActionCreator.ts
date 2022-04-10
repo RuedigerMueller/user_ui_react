@@ -36,11 +36,11 @@ export const createUser = (user: User) => {
 
       dispatch({
         type: UsersActionType.USERS_CREATE_SUCCESS,
-        user: data.user,
+        user: data,
       });
       console.log("Before addUser", data.user);
     } catch (err) {
-      console.log("error");
+      console.log("error", err);
       dispatch({
         type: UsersActionType.USERS_CREATE_FAIL,
         errorMessage: "Error",
