@@ -32,19 +32,14 @@ type LoginState = {
 
 type UsersState = {
   users: ReadonlyArray<User>;
+  selectedUserID: number;
   error: string;
 };
 
 type UserState = {
   user: User;
-  mode: string;
-  error: string;
+  mode: UserDetailsMode;
 };
 
-export enum MODES {
-  EDIT = "edit",
-  DISPLAY = "display",
-  CREATE = "create",
-}
-
-export type MODE = MODES;
+type Modes = ["edit", "display", "create"];
+type UserDetailsMode = Modes[number];

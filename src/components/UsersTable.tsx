@@ -3,6 +3,7 @@ import React, { SyntheticEvent, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Dispatch } from "redux";
+import { selectUser } from "../redux/actionCreators/userActionCreator";
 import {
   deleteUser,
   readUsers,
@@ -14,7 +15,7 @@ import { Options, User } from "../type";
 export const UsersTable: React.FC = () => {
   const dispatch: Dispatch<any> = useDispatch();
   const [redirectToUserDetails, setRedirectToUserDetails] = useState(false);
-  const [userID, setUserID] = useState(-1);
+  const [userID] = useState(-1);
   const { users } = useTypedSelector((state) => state.userList);
   const { accessToken } = useTypedSelector((state) => state.login);
 
@@ -24,6 +25,7 @@ export const UsersTable: React.FC = () => {
     const userID: number = parseInt(
       selectedOption.key.substring(0, dashPosition)
     );
+    const user: User = users.find((user) => user.id === userID) as User;
     const action: number = parseInt(
       selectedOption.key.substring(dashPosition + 1, selectedOption.key.length)
     );
@@ -31,9 +33,10 @@ export const UsersTable: React.FC = () => {
     switch (action) {
       case 1: {
         console.log("edit");
-        const user: User | undefined = users.find((user) => user.id === userID);
+        // const user: User | undefined = users.find((user) => user.id === userID);
         if (user) {
-          setUserID(user.id);
+          //setUserID(user.id);
+          dispatch(selectUser(user, "edit"));
           setRedirectToUserDetails(() => true);
         } else {
           console.log("user not found");

@@ -5,127 +5,20 @@ import {
   FormItem,
   FormLabel,
 } from "fundamental-react";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { connect, ConnectedProps } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
 import {
   createUser,
   updateUser,
 } from "../redux/actionCreators/usersActionCreator";
 import { RootState } from "../redux/reducers/combine";
-import { useTypedSelector } from "../redux/useTypeSelector";
-import { User } from "../type";
-
-const initialUser: User = {
-  id: -1,
-  username: "",
-  password: "",
-  firstName: "",
-  lastName: "",
-  email: "",
-};
 
 const UserDetails: React.FC<UserProps> = ({
+  user,
+  mode,
   createUser,
   updateUser,
 }: UserProps) => {
-  const { userID } = useParams();
-  const [user, setUser] = useState<User>(initialUser);
-  const { users } = useTypedSelector((state) => state.userList);
-  const navigate = useNavigate();
-
-  const buttonTexts = {
-    update: "Update",
-    create: "Create",
-    close: "Close",
-    cancel: "Cancel",
-  };
-
-  enum componentMode {
-    display,
-    edit,
-    create,
-  }
-
-  useEffect(() => {
-    if (userID) {
-      const user: User | undefined = users.find(
-        (user) => user.id === parseInt(userID)
-      );
-      if (user) {
-        setUser(user);
-      }
-    }
-  }, [users, userID]);
-
-  let buttonActionLabel: string = "";
-  const mode: number =
-    user.id !== -1 ? componentMode.edit : componentMode.create;
-
-  switch (mode) {
-    case componentMode.edit: {
-      buttonActionLabel = buttonTexts.update;
-      break;
-    }
-    case componentMode.display: {
-      buttonActionLabel = buttonTexts.close;
-      break;
-    }
-    case componentMode.create: {
-      buttonActionLabel = buttonTexts.create;
-      break;
-    }
-    default:
-      console.log("Unexpected mode");
-  }
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setUser((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
-
-  const handleKeyPress = (event: React.KeyboardEvent) => {
-    if (event.key === "Enter") {
-      next("cancel");
-    }
-  };
-
-  const handleButtonClick = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
-    const button: HTMLButtonElement = event.target as HTMLButtonElement;
-    next(button.innerText);
-  };
-
-  const next = async (action: string) => {
-    console.log(action);
-    switch (action) {
-      case buttonTexts.create: {
-        createUser(user);
-        navigate("../users");
-        break;
-      }
-      case buttonTexts.update: {
-        updateUser(user);
-        navigate("../users");
-        break;
-      }
-      case buttonTexts.close: {
-        navigate("../users");
-        break;
-      }
-      case buttonTexts.cancel: {
-        navigate("../users");
-        break;
-      }
-      default:
-        console.log("Unexpected action");
-    }
-  };
-
   return (
     <div className="userDetails">
       <FormGroup>
@@ -137,11 +30,9 @@ const UserDetails: React.FC<UserProps> = ({
             id="username"
             value={user.username}
             name="username"
-            disabled={
-              mode === componentMode.display || mode === componentMode.edit
-            }
-            onChange={handleChange}
-            onKeyPress={handleKeyPress}
+            disabled={mode === "display" || mode === "edit"}
+            //onChange={handleChange}
+            //onKeyPress={handleKeyPress}
           />
         </FormItem>
         <FormItem>
@@ -152,9 +43,9 @@ const UserDetails: React.FC<UserProps> = ({
             id="firstName"
             value={user.firstName}
             name="firstName"
-            disabled={mode === componentMode.display}
-            onChange={handleChange}
-            onKeyPress={handleKeyPress}
+            disabled={mode === "display"}
+            //onChange={handleChange}
+            //onKeyPress={handleKeyPress}
           />
         </FormItem>
         <FormItem>
@@ -165,9 +56,9 @@ const UserDetails: React.FC<UserProps> = ({
             id="lastName"
             value={user.lastName}
             name="lastName"
-            disabled={mode === componentMode.display}
-            onChange={handleChange}
-            onKeyPress={handleKeyPress}
+            disabled={mode === "display"}
+            // onChange={handleChange}
+            // onKeyPress={handleKeyPress}
           />
         </FormItem>
         <FormItem>
@@ -178,9 +69,9 @@ const UserDetails: React.FC<UserProps> = ({
             id="email"
             value={user.email}
             name="email"
-            disabled={mode === componentMode.display}
-            onChange={handleChange}
-            onKeyPress={handleKeyPress}
+            disabled={mode === "display"}
+            // onChange={handleChange}
+            // onKeyPress={handleKeyPress}
           />
         </FormItem>
         <FormItem isHorizontal={true}>
@@ -188,16 +79,16 @@ const UserDetails: React.FC<UserProps> = ({
             id="continue"
             option="emphasized"
             selected={true}
-            onClick={handleButtonClick}
+            //onClick={handleButtonClick}
           >
-            {buttonActionLabel}
+            'ACTION'
           </Button>
           &nbsp;
           <Button
             id="cancel"
-            hidden={mode === componentMode.display}
+            disabled={mode === "display"}
             selected={true}
-            onClick={handleButtonClick}
+            //onClick={handleButtonClick}
           >
             Cancel
           </Button>
@@ -208,7 +99,10 @@ const UserDetails: React.FC<UserProps> = ({
 };
 
 const mapStateToProps = (state: RootState) => {
-  return {};
+  return {
+    mode: state.user.mode,
+    user: state.user.user,
+  };
 };
 
 const mapDispatchToProps = {
