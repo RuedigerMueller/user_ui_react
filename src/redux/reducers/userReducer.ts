@@ -32,6 +32,14 @@ export const userReducer = (
         user: initialUser,
         mode: "display",
       };
+    case UserActionType.USER_UPDATE:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          [action.attribute]: action.value,
+        },
+      };
     default:
       return state;
   }

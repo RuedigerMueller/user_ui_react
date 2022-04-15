@@ -3,6 +3,7 @@ import { User, UserDetailsMode } from "../../type";
 export enum UserActionType {
   USER_SELECT = "USER_SELECT",
   USER_DESELECT = "USER_DESELECT",
+  USER_UPDATE = "USER_UPDATE",
 }
 
 interface userActionSelect {
@@ -15,4 +16,13 @@ interface userActionDeselect {
   type: UserActionType.USER_DESELECT;
 }
 
-export type UserAction = userActionSelect | userActionDeselect;
+interface userActionUpdate {
+  type: UserActionType.USER_UPDATE;
+  attribute: string;
+  value: string;
+}
+
+export type UserAction =
+  | userActionSelect
+  | userActionDeselect
+  | userActionUpdate;

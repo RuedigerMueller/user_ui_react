@@ -7,18 +7,40 @@ import {
 } from "fundamental-react";
 import React from "react";
 import { connect, ConnectedProps } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
-  createUser,
-  updateUser,
-} from "../redux/actionCreators/usersActionCreator";
+  handleUserDetailsAction,
+  updateUserStatus,
+} from "../redux/actionCreators/userActionCreator";
 import { RootState } from "../redux/reducers/combine";
 
 const UserDetails: React.FC<UserProps> = ({
   user,
   mode,
-  createUser,
-  updateUser,
+  updateUserStatus,
+  handleUserDetailsAction,
 }: UserProps) => {
+  const navigate = useNavigate();
+  const modeToActionLabelMap: { [id: string]: string } = {
+    edit: "Update",
+    display: "Close",
+    create: "Create",
+  };
+  const actionButtonLabel: string = modeToActionLabelMap[mode];
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    updateUserStatus(name, value);
+  };
+
+  const handleButtonClick = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    const button: HTMLButtonElement = event.target as HTMLButtonElement;
+    handleUserDetailsAction(button.innerText);
+    navigate("../users");
+  };
+
   return (
     <div className="userDetails">
       <FormGroup>
@@ -31,7 +53,7 @@ const UserDetails: React.FC<UserProps> = ({
             value={user.username}
             name="username"
             disabled={mode === "display" || mode === "edit"}
-            //onChange={handleChange}
+            onChange={handleChange}
             //onKeyPress={handleKeyPress}
           />
         </FormItem>
@@ -44,7 +66,7 @@ const UserDetails: React.FC<UserProps> = ({
             value={user.firstName}
             name="firstName"
             disabled={mode === "display"}
-            //onChange={handleChange}
+            onChange={handleChange}
             //onKeyPress={handleKeyPress}
           />
         </FormItem>
@@ -57,7 +79,7 @@ const UserDetails: React.FC<UserProps> = ({
             value={user.lastName}
             name="lastName"
             disabled={mode === "display"}
-            // onChange={handleChange}
+            onChange={handleChange}
             // onKeyPress={handleKeyPress}
           />
         </FormItem>
@@ -70,7 +92,7 @@ const UserDetails: React.FC<UserProps> = ({
             value={user.email}
             name="email"
             disabled={mode === "display"}
-            // onChange={handleChange}
+            onChange={handleChange}
             // onKeyPress={handleKeyPress}
           />
         </FormItem>
@@ -79,16 +101,16 @@ const UserDetails: React.FC<UserProps> = ({
             id="continue"
             option="emphasized"
             selected={true}
-            //onClick={handleButtonClick}
+            onClick={handleButtonClick}
           >
-            'ACTION'
+            {actionButtonLabel}
           </Button>
           &nbsp;
           <Button
             id="cancel"
             disabled={mode === "display"}
             selected={true}
-            //onClick={handleButtonClick}
+            onClick={handleButtonClick}
           >
             Cancel
           </Button>
@@ -100,14 +122,14 @@ const UserDetails: React.FC<UserProps> = ({
 
 const mapStateToProps = (state: RootState) => {
   return {
-    mode: state.user.mode,
-    user: state.user.user,
+    mode: state.userDetails.mode,
+    user: state.userDetails.user,
   };
 };
 
 const mapDispatchToProps = {
-  createUser,
-  updateUser,
+  updateUserStatus,
+  handleUserDetailsAction,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
