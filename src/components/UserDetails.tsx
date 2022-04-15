@@ -8,20 +8,26 @@ import {
 import React from "react";
 import { connect, ConnectedProps } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { updateSelectedUser } from "../redux/actionCreators/userActionCreator";
 import {
-  handleUserDetailsAction,
-  updateUserStatus,
-} from "../redux/actionCreators/userActionCreator";
+  createUser,
+  updateUser,
+} from "../redux/actionCreators/usersActionCreator";
 import { RootState } from "../redux/reducers/combine";
 
 const UserDetails: React.FC<UserProps> = ({
   user,
   mode,
-  updateUserStatus,
-  handleUserDetailsAction,
+  updateSelectedUser,
+  updateUser,
+  createUser,
 }: UserProps) => {
   const navigate = useNavigate();
-  const modeToActionLabelMap: { [id: string]: string } = {
+
+  type Actions = ["Update", "Close", "Create", "Cancel"];
+  type Action = Actions[number];
+
+  const modeToActionLabelMap: { [id: string]: Action } = {
     edit: "Update",
     display: "Close",
     create: "Create",
@@ -30,14 +36,33 @@ const UserDetails: React.FC<UserProps> = ({
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    updateUserStatus(name, value);
+    updateSelectedUser(name, value);
   };
 
   const handleButtonClick = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     const button: HTMLButtonElement = event.target as HTMLButtonElement;
-    handleUserDetailsAction(button.innerText);
+    const action: Action = button.innerText as Action;
+    switch (action) {
+      case "Update": {
+        updateUser(user);
+        break;
+      }
+      case "Create": {
+        createUser(user);
+        break;
+      }
+      case "Close": {
+        break;
+      }
+      case "Cancel": {
+        break;
+      }
+      default: {
+        console.log("Unexpected action");
+      }
+    }
     navigate("../users");
   };
 
@@ -54,7 +79,6 @@ const UserDetails: React.FC<UserProps> = ({
             name="username"
             disabled={mode === "display" || mode === "edit"}
             onChange={handleChange}
-            //onKeyPress={handleKeyPress}
           />
         </FormItem>
         <FormItem>
@@ -67,7 +91,6 @@ const UserDetails: React.FC<UserProps> = ({
             name="firstName"
             disabled={mode === "display"}
             onChange={handleChange}
-            //onKeyPress={handleKeyPress}
           />
         </FormItem>
         <FormItem>
@@ -80,7 +103,6 @@ const UserDetails: React.FC<UserProps> = ({
             name="lastName"
             disabled={mode === "display"}
             onChange={handleChange}
-            // onKeyPress={handleKeyPress}
           />
         </FormItem>
         <FormItem>
@@ -93,7 +115,6 @@ const UserDetails: React.FC<UserProps> = ({
             name="email"
             disabled={mode === "display"}
             onChange={handleChange}
-            // onKeyPress={handleKeyPress}
           />
         </FormItem>
         <FormItem isHorizontal={true}>
@@ -128,8 +149,9 @@ const mapStateToProps = (state: RootState) => {
 };
 
 const mapDispatchToProps = {
-  updateUserStatus,
-  handleUserDetailsAction,
+  updateSelectedUser,
+  updateUser,
+  createUser,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
