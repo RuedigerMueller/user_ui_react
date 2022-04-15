@@ -8,7 +8,10 @@ import {
 import React from "react";
 import { connect, ConnectedProps } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { updateSelectedUser } from "../redux/actionCreators/userActionCreator";
+import {
+  deselectUser,
+  updateSelectedUser,
+} from "../redux/actionCreators/userActionCreator";
 import {
   createUser,
   updateUser,
@@ -21,6 +24,7 @@ const UserDetails: React.FC<UserProps> = ({
   updateSelectedUser,
   updateUser,
   createUser,
+  deselectUser,
 }: UserProps) => {
   const navigate = useNavigate();
 
@@ -54,9 +58,11 @@ const UserDetails: React.FC<UserProps> = ({
         break;
       }
       case "Close": {
+        deselectUser();
         break;
       }
       case "Cancel": {
+        deselectUser();
         break;
       }
       default: {
@@ -152,6 +158,7 @@ const mapDispatchToProps = {
   updateSelectedUser,
   updateUser,
   createUser,
+  deselectUser,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
