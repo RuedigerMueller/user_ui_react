@@ -32,7 +32,6 @@ type LoginState = {
 
 type UsersState = {
   users: ReadonlyArray<User>;
-  selectedUserID: number;
   error: string;
 };
 

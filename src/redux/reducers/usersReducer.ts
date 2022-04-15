@@ -3,7 +3,6 @@ import { UsersActions, UsersActionType } from "../actionTypes/usersActionTypes";
 
 const initialState: UsersState = {
   users: [],
-  selectedUserID: -1,
   error: "",
 };
 
