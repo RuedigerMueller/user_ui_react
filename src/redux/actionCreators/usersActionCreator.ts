@@ -87,7 +87,6 @@ export const updateUser = (user: User) => {
     dispatch: Dispatch<UsersActions>,
     getState: () => RootState
   ) => {
-    console.log("updateUser");
     const state: RootState = getState();
     const accessToken: string = state.login.accessToken;
     dispatch({

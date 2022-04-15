@@ -32,7 +32,7 @@ export const userReducer = (
         user: initialUser,
         mode: "display",
       };
-    case UserActionType.USER_UPDATE:
+    case UserActionType.USER_SELECTED_UPDATE:
       return {
         ...state,
         user: {
