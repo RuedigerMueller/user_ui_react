@@ -38,7 +38,6 @@ export const createUser = (user: User) => {
         type: UsersActionType.USERS_CREATE_SUCCESS,
         user: data,
       });
-      console.log("Before addUser", data.user);
     } catch (err) {
       console.log("error", err);
       dispatch({
