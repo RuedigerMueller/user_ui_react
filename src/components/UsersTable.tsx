@@ -22,8 +22,7 @@ export const UsersTable: React.FC = () => {
 
   let navigate = useNavigate();
 
-  const onEdit = (userID: number): void => {
-    const user: User = users.find((user) => user.id === userID) as User;
+  const onEdit = (user: User): void => {
     dispatch(selectUser(user, "edit"));
     setRedirectToUserDetails(() => true);
   };
@@ -55,13 +54,13 @@ export const UsersTable: React.FC = () => {
               <>
                 <Button
                   glyph="edit"
-                  id={user.id.toString() + "-edit"}
-                  onClick={(e) => onEdit(user.id)}
+                  id={"edit-" + user.id.toString()}
+                  onClick={(e) => onEdit(user)}
                 ></Button>
                 &nbsp;
                 <Button
                   glyph="delete"
-                  id={user.id.toString() + "-delete"}
+                  id={"delete-" + user.id.toString()}
                   onClick={(e) => onDelete(user.id)}
                 ></Button>
               </>,
