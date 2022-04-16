@@ -15,15 +15,7 @@ export const App: React.FC = () => {
   return (
     <div className="App">
       <BrowserRouter>
-        <Shellbar
-          logo={
-            <img
-              alt="SAP"
-              src="//unpkg.com/fundamental-styles/dist/images/sap-logo.png"
-            />
-          }
-          productTitle="User UI - React"
-        />
+        <Shellbar logoSAP={true} productTitle="User UI - React" />
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/users" element={<UserList />} />

@@ -17,7 +17,12 @@ export const UsersTable: React.FC = () => {
   const [redirectToUserDetails, setRedirectToUserDetails] = useState(false);
   const [userID] = useState(-1);
   const { users } = useTypedSelector((state) => state.userList);
-  const { accessToken } = useTypedSelector((state) => state.login);
+
+  useEffect(() => {
+    dispatch(readUsers());
+  }, [dispatch]);
+
+  let navigate = useNavigate();
 
   const onSelect = (event: SyntheticEvent, selectedOption: Options): void => {
     //ToDo: feels like a hack - there must be a better way to provide the row context
@@ -32,10 +37,7 @@ export const UsersTable: React.FC = () => {
 
     switch (action) {
       case 1: {
-        console.log("edit");
-        // const user: User | undefined = users.find((user) => user.id === userID);
         if (user) {
-          //setUserID(user.id);
           dispatch(selectUser(user, "edit"));
           setRedirectToUserDetails(() => true);
         } else {
@@ -44,27 +46,18 @@ export const UsersTable: React.FC = () => {
         break;
       }
       case 2: {
-        console.log("delete");
         dispatch(deleteUser(userID));
         break;
       }
       case 3: {
-        console.log("assign roles");
-        //this.props.handleCanvasContentUpdate(screenActions.assignRoles);
         break;
       }
       default: {
-        console.log("surprise");
+        console.log("Unexpected action");
         break;
       }
     }
   };
-
-  useEffect(() => {
-    dispatch(readUsers());
-  }, [dispatch, accessToken]);
-
-  let navigate = useNavigate();
 
   return (
     <div className="userlist">
