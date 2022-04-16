@@ -1,5 +1,5 @@
-import { Select, Table } from "fundamental-react";
-import React, { SyntheticEvent, useEffect, useState } from "react";
+import { Button, Table } from "fundamental-react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Dispatch } from "redux";
@@ -8,14 +8,12 @@ import {
   deleteUser,
   readUsers,
 } from "../redux/actionCreators/usersActionCreator";
-
 import { useTypedSelector } from "../redux/useTypeSelector";
-import { Options, User } from "../type";
+import { User } from "../type";
 
 export const UsersTable: React.FC = () => {
   const dispatch: Dispatch<any> = useDispatch();
   const [redirectToUserDetails, setRedirectToUserDetails] = useState(false);
-  const [userID] = useState(-1);
   const { users } = useTypedSelector((state) => state.userList);
 
   useEffect(() => {
@@ -24,44 +22,19 @@ export const UsersTable: React.FC = () => {
 
   let navigate = useNavigate();
 
-  const onSelect = (event: SyntheticEvent, selectedOption: Options): void => {
-    //ToDo: feels like a hack - there must be a better way to provide the row context
-    const dashPosition: number = selectedOption.key.indexOf("-");
-    const userID: number = parseInt(
-      selectedOption.key.substring(0, dashPosition)
-    );
+  const onEdit = (userID: number): void => {
     const user: User = users.find((user) => user.id === userID) as User;
-    const action: number = parseInt(
-      selectedOption.key.substring(dashPosition + 1, selectedOption.key.length)
-    );
+    dispatch(selectUser(user, "edit"));
+    setRedirectToUserDetails(() => true);
+  };
 
-    switch (action) {
-      case 1: {
-        if (user) {
-          dispatch(selectUser(user, "edit"));
-          setRedirectToUserDetails(() => true);
-        } else {
-          console.log("user not found");
-        }
-        break;
-      }
-      case 2: {
-        dispatch(deleteUser(userID));
-        break;
-      }
-      case 3: {
-        break;
-      }
-      default: {
-        console.log("Unexpected action");
-        break;
-      }
-    }
+  const onDelete = (userID: number): void => {
+    dispatch(deleteUser(userID));
   };
 
   return (
     <>
-      {redirectToUserDetails && navigate(`../user/${userID}`)}
+      {redirectToUserDetails && navigate(`../user`)}
       <Table
         headers={[
           "ID",
@@ -80,19 +53,17 @@ export const UsersTable: React.FC = () => {
               user.lastName,
               user.email,
               <>
-                <Select
-                  key={user.id}
-                  id={user.id.toString()}
-                  aria-label="Primary"
-                  options={[
-                    { key: `${user.id}-1`, text: "Edit" },
-                    { key: `${user.id}-2`, text: "Delete" },
-                    { key: `${user.id}-3`, text: "Assign Roles" },
-                  ]}
-                  placeholder="Select"
-                  selectedKey={user.id.toString() + "-1"}
-                  onSelect={onSelect}
-                />
+                <Button
+                  glyph="edit"
+                  id={user.id.toString() + "-edit"}
+                  onClick={(e) => onEdit(user.id)}
+                ></Button>
+                &nbsp;
+                <Button
+                  glyph="delete"
+                  id={user.id.toString() + "-delete"}
+                  onClick={(e) => onDelete(user.id)}
+                ></Button>
               </>,
             ],
           };

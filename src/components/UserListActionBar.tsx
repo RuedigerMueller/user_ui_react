@@ -26,7 +26,11 @@ export const UserTableActionBar: React.FC = () => {
       <ActionBar
         title={"Users"}
         description={"Manage application users"}
-        actions={<Button onClick={() => handleCreate()}>Create</Button>}
+        actions={
+          <Button glyph="create" onClick={() => handleCreate()}>
+            Create
+          </Button>
+        }
       />
     </div>
   );
