@@ -60,7 +60,7 @@ export const UsersTable: React.FC = () => {
   };
 
   return (
-    <div className="userlist">
+    <>
       {redirectToUserDetails && navigate(`../user/${userID}`)}
       <Table
         headers={[
@@ -98,6 +98,6 @@ export const UsersTable: React.FC = () => {
           };
         })}
       />
-    </div>
+    </>
   );
 };
