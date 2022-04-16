@@ -1,5 +1,6 @@
 import {
   Button,
+  Checkbox,
   FormGroup,
   FormInput,
   FormItem,
@@ -123,6 +124,16 @@ const UserDetails: React.FC<UserProps> = ({
             onChange={handleChange}
           />
         </FormItem>
+        <Checkbox
+          id="admin"
+          name="admin"
+          checked={user.isAdmin}
+          onChange={() => {
+            console.log("changed");
+          }}
+        >
+          Admin
+        </Checkbox>
         <FormItem isHorizontal={true}>
           <Button
             id="continue"

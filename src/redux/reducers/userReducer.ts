@@ -8,6 +8,7 @@ export const initialUser: User = {
   firstName: "",
   lastName: "",
   email: "",
+  isAdmin: false,
 };
 
 const initialState: UserState = {

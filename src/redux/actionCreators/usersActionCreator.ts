@@ -67,9 +67,14 @@ export const readUsers = () => {
         },
       };
       const { data } = await axios.get("users", config);
+      const users: Array<User> = data.map((backend_user: any) => {
+        const user: User = { ...backend_user };
+        user.isAdmin = backend_user.roles.includes("admin");
+        return user;
+      });
       dispatch({
         type: UsersActionType.USERS_READ_SUCCESS,
-        users: data,
+        users: users,
       });
     } catch (err) {
       console.log("error");

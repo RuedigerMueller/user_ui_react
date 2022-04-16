@@ -5,6 +5,7 @@ export interface User {
   firstName: string;
   lastName: string;
   email: string;
+  isAdmin: boolean;
 }
 
 type LoginInfo = {
@@ -12,13 +13,12 @@ type LoginInfo = {
   password: string;
 };
 
-type Options = {
+/* type Options = {
   key: string;
   text: string;
-};
+}; */
 
 type AppState = {
-  //displayState: DisplayState;
   accessToken: string;
   user: User;
   userList: ReadonlyArray<User>;
