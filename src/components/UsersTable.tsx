@@ -1,5 +1,5 @@
 import { Button, Table } from "fundamental-react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Dispatch } from "redux";
@@ -13,18 +13,16 @@ import { User } from "../type";
 
 export const UsersTable: React.FC = () => {
   const dispatch: Dispatch<any> = useDispatch();
-  const [redirectToUserDetails, setRedirectToUserDetails] = useState(false);
   const { users } = useTypedSelector((state) => state.userList);
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(readUsers());
   }, [dispatch]);
 
-  let navigate = useNavigate();
-
   const onEdit = (user: User): void => {
     dispatch(selectUser(user, "edit"));
-    setRedirectToUserDetails(() => true);
+    navigate(`../user`);
   };
 
   const onDelete = (userID: number): void => {
@@ -33,7 +31,6 @@ export const UsersTable: React.FC = () => {
 
   return (
     <>
-      {redirectToUserDetails && navigate(`../user`)}
       <Table
         headers={[
           "ID",

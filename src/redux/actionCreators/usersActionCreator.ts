@@ -109,6 +109,12 @@ export const updateUser = (user: User) => {
         },
       };
 
+      if (user.isAdmin) {
+        await axios.post(`users/${user.id}/addRole/admin`, {}, config);
+      } else {
+        await axios.post(`users/${user.id}/removeRole/admin`, {}, config);
+      }
+
       const { data } = await axios.patch(
         `users/${user.id}`,
         {
@@ -118,12 +124,6 @@ export const updateUser = (user: User) => {
         },
         config
       );
-
-      if (user.isAdmin) {
-        await axios.post(`users/${user.id}/addRole/admin`, {}, config);
-      } else {
-        await axios.post(`users/${user.id}/removeRole/admin`, {}, config);
-      }
 
       dispatch({
         type: UsersActionType.USERS_UPDATE_SUCCESS,

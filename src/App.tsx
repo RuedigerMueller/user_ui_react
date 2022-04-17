@@ -11,6 +11,8 @@ import { UserList } from "./components/UserList";
 
 axios.defaults.baseURL = "http://localhost:3001/";
 
+// <Route path="/user/:userID" element={<UserDetails />} />
+
 export const App: React.FC = () => {
   return (
     <div className="App">
@@ -19,7 +21,6 @@ export const App: React.FC = () => {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/users" element={<UserList />} />
-          <Route path="/user/:userID" element={<UserDetails />} />
           <Route path="/user" element={<UserDetails />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
