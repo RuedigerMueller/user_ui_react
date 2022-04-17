@@ -19,7 +19,7 @@ interface userActionDeselect {
 interface userActionUpdate {
   type: UserActionType.USER_SELECTED_UPDATE;
   attribute: string;
-  value: string;
+  value: string | boolean;
 }
 
 export type UserAction =

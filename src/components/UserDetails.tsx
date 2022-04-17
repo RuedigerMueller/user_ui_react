@@ -44,6 +44,13 @@ const UserDetails: React.FC<UserProps> = ({
     updateSelectedUser(name, value);
   };
 
+  const handleCheckboxChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    checkedState: boolean
+  ) => {
+    updateSelectedUser("isAdmin", checkedState);
+  };
+
   const handleButtonClick = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
@@ -52,10 +59,12 @@ const UserDetails: React.FC<UserProps> = ({
     switch (action) {
       case "Update": {
         updateUser(user);
+        deselectUser();
         break;
       }
       case "Create": {
         createUser(user);
+        deselectUser();
         break;
       }
       case "Close": {
@@ -125,12 +134,10 @@ const UserDetails: React.FC<UserProps> = ({
           />
         </FormItem>
         <Checkbox
-          id="admin"
-          name="admin"
+          id="isAdmin"
+          name="isAdmin"
           checked={user.isAdmin}
-          onChange={() => {
-            console.log("changed");
-          }}
+          onChange={handleCheckboxChange}
         >
           Admin
         </Checkbox>

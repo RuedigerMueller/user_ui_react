@@ -34,6 +34,10 @@ export const createUser = (user: User) => {
         config
       );
 
+      if (user.isAdmin) {
+        await axios.post(`users/${user.id}/addRole/admin`, {}, config);
+      }
+
       dispatch({
         type: UsersActionType.USERS_CREATE_SUCCESS,
         user: data,
@@ -115,12 +119,18 @@ export const updateUser = (user: User) => {
         config
       );
 
+      if (user.isAdmin) {
+        await axios.post(`users/${user.id}/addRole/admin`, {}, config);
+      } else {
+        await axios.post(`users/${user.id}/removeRole/admin`, {}, config);
+      }
+
       dispatch({
         type: UsersActionType.USERS_UPDATE_SUCCESS,
         user: data.user,
       });
     } catch (err) {
-      console.log("error");
+      console.log("error", err);
       dispatch({
         type: UsersActionType.USERS_UPDATE_FAIL,
         errorMessage: "Error",

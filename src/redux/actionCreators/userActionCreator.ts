@@ -20,7 +20,10 @@ export const deselectUser = () => {
   };
 };
 
-export const updateSelectedUser = (attribute: string, value: string) => {
+export const updateSelectedUser = (
+  attribute: string,
+  value: string | boolean
+) => {
   return async (dispatch: Dispatch<UserAction>) => {
     dispatch({
       type: UserActionType.USER_SELECTED_UPDATE,
