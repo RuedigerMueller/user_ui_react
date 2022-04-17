@@ -35,7 +35,7 @@ export const createUser = (user: User) => {
       );
 
       if (user.isAdmin) {
-        await axios.post(`users/${user.id}/addRole/admin`, {}, config);
+        await axios.post(`users/${data.id}/addRole/admin`, {}, config);
       }
 
       dispatch({
