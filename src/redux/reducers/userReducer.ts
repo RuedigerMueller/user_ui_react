@@ -1,5 +1,13 @@
-import { User, UserState } from "../../type";
+import { User } from "../../type";
 import { UserAction, UserActionType } from "../actionTypes/userActionTypes";
+
+type UserState = {
+  user: User;
+  mode: UserDetailsMode;
+};
+
+type Modes = ["edit", "display", "create"];
+type UserDetailsMode = Modes[number];
 
 export const initialUser: User = {
   id: -1,

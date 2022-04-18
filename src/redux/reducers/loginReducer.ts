@@ -1,5 +1,9 @@
-import { LoginState } from "../../type";
 import { LoginAction, LoginActionType } from "../actionTypes/loginActionTypes";
+
+type LoginState = {
+  accessToken: string;
+  error: string;
+};
 
 const initialState: LoginState = {
   accessToken: "",

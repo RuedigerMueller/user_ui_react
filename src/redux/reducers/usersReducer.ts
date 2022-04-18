@@ -1,5 +1,10 @@
-import { UsersState } from "../../type";
+import { User } from "../../type";
 import { UsersActions, UsersActionType } from "../actionTypes/usersActionTypes";
+
+type UsersState = {
+  users: ReadonlyArray<User>;
+  error: string;
+};
 
 const initialState: UsersState = {
   users: [],

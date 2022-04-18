@@ -12,33 +12,3 @@ type LoginInfo = {
   username: string;
   password: string;
 };
-
-/* type Options = {
-  key: string;
-  text: string;
-}; */
-
-type AppState = {
-  accessToken: string;
-  user: User;
-  userList: ReadonlyArray<User>;
-  error: string;
-};
-
-type LoginState = {
-  accessToken: string;
-  error: string;
-};
-
-type UsersState = {
-  users: ReadonlyArray<User>;
-  error: string;
-};
-
-type UserState = {
-  user: User;
-  mode: UserDetailsMode;
-};
-
-type Modes = ["edit", "display", "create"];
-type UserDetailsMode = Modes[number];
