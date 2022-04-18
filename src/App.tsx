@@ -9,9 +9,11 @@ import UserDetails from "./components/UserDetails";
 
 import { UserList } from "./components/UserList";
 
-axios.defaults.baseURL = "http://localhost:3001/";
-
-// <Route path="/user/:userID" element={<UserDetails />} />
+if (process.env.NODE_ENV === "production") {
+  axios.defaults.baseURL = "/backend";
+} else {
+  axios.defaults.baseURL = process.env.REACT_APP_BACKEND_URL;
+}
 
 export const App: React.FC = () => {
   return (
