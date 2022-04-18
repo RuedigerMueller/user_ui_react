@@ -1,4 +1,5 @@
-import { User, UserDetailsMode } from "../../type";
+import { User } from "../../type";
+import { UserDetailsMode } from "../reducers/userReducer";
 
 export enum UserActionType {
   USER_SELECT = "USER_SELECT",

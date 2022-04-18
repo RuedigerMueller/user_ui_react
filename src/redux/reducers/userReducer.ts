@@ -7,7 +7,7 @@ type UserState = {
 };
 
 type Modes = ["edit", "display", "create"];
-type UserDetailsMode = Modes[number];
+export type UserDetailsMode = Modes[number];
 
 export const initialUser: User = {
   id: -1,
