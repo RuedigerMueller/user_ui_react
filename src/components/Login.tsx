@@ -40,8 +40,8 @@ export const Login: React.FC = () => {
     loginUser();
   };
 
-  const loginUser = async () => {
-    await dispatch(login(loginInfo));
+  const loginUser = () => {
+    dispatch(login(loginInfo));
   };
 
   return (
